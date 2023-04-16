@@ -1,13 +1,8 @@
-import json
+# ESTE MODULO SERVE PARA CRIAR O FICHEIRO JSON FINAL
 
+import json
 import lexico
 import re
-
-
-
-"""
-Prototipo que ainda precisa de muitas alterações!
-"""
 
 def toml_to_json(toml_file_path):
     try:
