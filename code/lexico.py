@@ -1,54 +1,73 @@
-import ply.lex as lex
+from ply import lex
 
-"""
-Prototipo que ainda precisa de muitas alterações!
-"""
+tokens = (
+    'CHAVE',
+    'EQUALS',
+    'STRING',
+    'INTEIRO',
+    'FLOAT',
+    'BOOLEAN',
+    'ARRAY_START',
+    'ARRAY_END',
+    'VIRGULA',
+    'NEWLINE',
+    'COMENTARIO'
+)
 
-def tokenizer(ficheiro):
+# Expressões regulares para os tokens
+t_EQUALS = r'='
+t_ARRAY_START = r'\['
+t_ARRAY_END = r'\]'
+t_VIRGULA = r','
+t_ignore_COMENTARIO = r'\#.*' # --> comentários não são essenciais para o ficheiro json logo podem ser ignorados
+t_ignore = ' \t'
 
-    tokens = (
-        'PALAVRA',
-        'VIRGULA',
-        'PONTOE',
-        'PONTOI',
-        'PONTOF',
-        'RETS'
-    )
+# Funções de match para os tokens
+def t_CHAVE(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    return t
 
-    t_PALAVRA = r'[\w\-]+'
-    t_VIRGULA = r','
-    t_PONTOE = r'\!'
-    t_PONTOI = r'\?'
-    t_PONTOF = r'\.'
-    t_RETS = r'\.{3,}'
+def t_STRING(t):
+    r'"[^"]*"|\'[^\']*\''
+    t.value = t.value[1:-1]
+    return t
 
-    t_ignore = ' \t\n'
+def t_INTEIRO(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
 
-    def t_error(t):
-        print(f"Caracter ilegal {t.value[0]}")
-        t.lexer.skip(1)
+def t_FLOAT(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
 
-    lexer = lex.lex()
+def t_BOOLEAN(t):
+    r'true|false'
+    t.value = True if t.value == 'true' else False
+    return t
 
-    content = ficheiro.read()
-    lexer.input(content)
+def t_NEWLINE(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+    return t
 
-    tokens = []
+# Função para tratamento de erros
+def t_error(t):
+    print(f'Caractere ilegal: {t.value[0]}')
+    t.lexer.skip(1)
 
-    while True:
-        tok = lexer.token()
-        if not tok:
-            break
-        tokens.append(tok)
+# Construção do analisador léxico
+lexer = lex.lex()
 
-    return tokens
+# Função para analisar um ficheiro TOML cujo nome é passado como argumento
+def analisar_ficheiro_toml(filename):
+    with open(filename, 'r', encoding='UTF-8') as file:
+        dados = file.read()
+        lexer.input(dados)
 
-
-
-"""""
-# Exemplo de uso lendo um arquivo
-with open('toml_files\exemplo1.toml', 'r', encoding='UTF-8') as file:
-    content = file.read()
-    tokens = tokenizer(content)
-    print(tokens)
-"""
+        while True:
+            tok = lexer.token()
+            if not tok:
+                break
+            print(tok)
