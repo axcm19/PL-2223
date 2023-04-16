@@ -4,7 +4,7 @@ import ply.lex as lex
 Prototipo que ainda precisa de muitas alterações!
 """
 
-def frases():
+def tokenizer(ficheiro):
 
     tokens = (
         'PALAVRA',
@@ -30,13 +30,25 @@ def frases():
 
     lexer = lex.lex()
 
+    content = ficheiro.read()
+    lexer.input(content)
 
-    while data := input("---> "):
-        lexer.input(data)
+    tokens = []
 
-        if data == "EXIT":
-            return
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        tokens.append(tok)
 
-        else:
-            while tok := lexer.token():
-                print(tok)
+    return tokens
+
+
+
+"""""
+# Exemplo de uso lendo um arquivo
+with open('toml_files\exemplo1.toml', 'r', encoding='UTF-8') as file:
+    content = file.read()
+    tokens = tokenizer(content)
+    print(tokens)
+"""
