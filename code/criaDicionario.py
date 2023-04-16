@@ -17,7 +17,7 @@ def p_error(p):
 parser = yacc.yacc()
 
 # Função para analisar os tokens obtidos do lex e criar um dicionário
-def cria_dict():
+def cria_dict(tokens):
 
     while s := input(''):
 

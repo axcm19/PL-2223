@@ -73,3 +73,5 @@ def analisar_ficheiro_toml(filename):
             if not tok:
                 break
             print(tok)
+
+        return tokens

@@ -3,6 +3,7 @@
 import json
 import lexico
 import re
+import criaDicionario
 
 def toml_to_json(toml_file_path):
     try:
@@ -21,7 +22,8 @@ def toml_to_json(toml_file_path):
 
         print(f"\n")
         # faz a analise lexica e imprime os tokes no terminal
-        lexico.analisar_ficheiro_toml(toml_file_path)
+        tokens = lexico.analisar_ficheiro_toml(toml_file_path)
+        dict = criaDicionario.cria_dict(tokens)
 
         list_for_json.append(dict)
 
