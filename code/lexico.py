@@ -74,4 +74,4 @@ def analisar_ficheiro_toml(filename):
                 break
             print(tok)
 
-        return tokens
+        #return tokens
