@@ -30,7 +30,6 @@ def main():
 
         else:
             converter.toml_to_json(toml_file_path)
-            print("Ficheiro convertido com sucesso (ver pasta json_files)\n")
 
 
 if __name__ == "__main__":

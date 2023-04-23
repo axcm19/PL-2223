@@ -9,7 +9,7 @@ def toml_to_json(toml_file_path):
     try:
         json_filename = re.search(r"\\([^.]*)", toml_file_path).group(1)
         json_filename = "json_files\\"  + json_filename + ".json"
-        toml_file = open(toml_file_path, encoding='UTF-8')
+        #toml_file = open(toml_file_path, encoding='UTF-8')
         json_file = open(json_filename, "w", encoding='UTF-8')
         #lines = toml_file.readlines()
 
@@ -22,8 +22,12 @@ def toml_to_json(toml_file_path):
 
         print(f"\n")
         # faz a analise lexica e imprime os tokes no terminal
-        tokens = lexico.analisar_ficheiro_toml(toml_file_path)
-        dict = criaDicionario.cria_dict(tokens)
+        lista_tokens = lexico.analisar_ficheiro_toml(toml_file_path)
+        print("\n")
+        dict = criaDicionario.cria_dict(toml_file_path)
+
+        if len(dict) > 0:
+            print("Ficheiro convertido com sucesso (ver pasta json_files)\n")
 
         list_for_json.append(dict)
 
@@ -32,7 +36,7 @@ def toml_to_json(toml_file_path):
 
     finally:
 
-        toml_file.close()
+        #toml_file.close()
         json_file.close()
 
 
