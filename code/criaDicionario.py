@@ -56,8 +56,8 @@ def p_value(p):
              | BOOLEAN'''
     p[0] = p[1]
 
-def p_error(p):
-    print(f"Syntax error at line {p.lineno}: Unexpected token {p.value}")
+#def p_error(p):
+   # print(f"Syntax error at line {p.lineno}: Unexpected token {p.value}")
 
 parser = yacc.yacc()
 

@@ -38,6 +38,7 @@ t_ARRAY_START = r'\['
 t_ARRAY_END = r'\]'
 t_VIRGULA = r','
 t_DOT = r'\.'
+t_ignore_NEWLINE = r'\n+'
 t_ignore_COMENTARIO = r'\#.*' # --> comentários não são essenciais para o ficheiro json logo podem ser ignorados
 t_ignore = ' \t'
 
@@ -66,12 +67,12 @@ def t_BOOLEAN(t):
     t.value = True if t.value == 'true' else False
     return t
 
-
+"""
 def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
     return t
-
+"""
 
 # Função para tratamento de erros
 def t_error(t):

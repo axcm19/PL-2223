@@ -13,10 +13,6 @@ def toml_to_json(toml_file_path):
         json_file = open(json_filename, "w", encoding='UTF-8')
         #lines = toml_file.readlines()
 
-        # lista para guardar o dicionário dict
-        # esta lista vai ser colocada no json através da função 'dump'
-        list_for_json = []
-
         # criar um dicionário que vai ser gerado com os tokens obtidos do lex
         dict = {}
 
@@ -29,10 +25,8 @@ def toml_to_json(toml_file_path):
         if len(dict) > 0:
             print("Ficheiro convertido com sucesso (ver pasta json_files)\n")
 
-        list_for_json.append(dict)
-
         # escrita final no ficheiro json
-        json.dump(list_for_json, json_file, ensure_ascii=False, indent=8)
+        json.dump(dict, json_file, ensure_ascii=False, indent=8)
 
     finally:
 
