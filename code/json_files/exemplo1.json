@@ -1,3 +1,19 @@
-[
-        {}
-]
+{
+        "titulo": "Meu Servidor Web",
+        "porta": 8080,
+        "ativo": true,
+        "diretorio_raiz": "/var/www/html",
+        "banco_de_dados": {
+                "host": "localhost",
+                "porta": 5432,
+                "usuario": "usuario",
+                "senha": "senha",
+                "banco": "meu_banco_de_dados"
+        },
+        "cache": {
+                "ativo": true,
+                "tipo": "redis",
+                "host": "localhost",
+                "porta": 6379
+        }
+}

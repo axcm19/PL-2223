@@ -2,85 +2,130 @@
 
 from ply import lex
 
-tokens = (
-    'CHAVE',
-    'EQUALS',
-    'STRING',
-    'INTEIRO',
-    'FLOAT',
-    'BOOLEAN',
-    'ARRAY_START',
-    'ARRAY_END',
-    'VIRGULA',
-    'DOT',
-    'NEWLINE',
-    'COMENTARIO'
+states = (
+    ('taga', 'inclusive'),
+    ('aot','inclusive'),
 )
 
-"""
 tokens = (
+    'TAGA',
+    'NAMETAG',
+    'VAR',
+    'INT',
     'STRING',
-    'INTEGER',
     'FLOAT',
-    'BOOLEAN',
-    'LBRACKET',
-    'RBRACKET',
-    'LBRACE',
-    'RBRACE',
-    'EQUALS',
-    'COMMA',
+    'DATA',
+    'IGUAL',
+    'COMENTARIO',
+    'BOOL',
+    'APR',
+    'FPR',
+    'VIRG',
+    'DP',
+    'SUBTAGA',
+    'SUBTAG',
+    'TIME',
+    'DOTTEDKEY',
+    'MULTILINESTRING',
+    'INDIANFORMAT',
+    'SIGNALINTS',
+    'BINARY',
+    'OCTAL',
+    'HEXADECIMAL',
+    'AC',
+    'FC',
+    'AOTA',
+    'AOTF'
 )
-"""
 
-# Expressões regulares para os tokens
-t_EQUALS = r'='
-t_ARRAY_START = r'\['
-t_ARRAY_END = r'\]'
-t_VIRGULA = r','
-t_DOT = r'\.'
-t_ignore_NEWLINE = r'\n+'
-t_ignore_COMENTARIO = r'\#.*' # --> comentários não são essenciais para o ficheiro json logo podem ser ignorados
-t_ignore = ' \t'
 
-# Funções de match para os tokens
-def t_CHAVE(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
+t_VAR = r'[A-Za-z_\-]+'
+t_DOTTEDKEY = r'[A-Za-z_\-]+(\.[A-Za-z_\-]+)+'
+t_INT = r'\d+'
+t_INDIANFORMAT = r'\d+(_\d+)+'
+t_SIGNALINTS = r'[+-]\d+'
+t_BINARY = r'0b[01]+'
+t_OCTAL = r'0o[0-7]+'
+t_HEXADECIMAL = r'0x[0-9a-fA-F]+'
+t_STRING = r'".*?"'
+#t_FLOAT = r'\d+,\d+'
+t_DATA = r'\d{4}\-\d{2}\-\d{2}'
+t_TIME = r'\d{2}\:\d{2}\:\d{2}'
+t_IGUAL = r'\='
+t_APR = r'\['
+t_FPR = r'\]'
+t_VIRG = r'\,'
+t_DP = r'\:'
+t_AC = r'\{'
+t_FC = r'\}'
+
+def t_AOTA(t):
+    r'\n+\[\['
+    t.lexer.begin('aot')
     return t
 
-def t_STRING(t):
-    r'"[^"]*"|\'[^\']*\''
-    t.value = t.value[1:-1]
+def t_aot_NAMETAG(t):
+    r'[A-Za-z_\-\.0-9]+'
     return t
 
-def t_INTEIRO(t):
-    r'\d+'
-    t.value = int(t.value)
+def t_aot_SUBTAG(t):
+    r'\w+(\.\w+)*'
+    return t
+
+def t_aot_AOTF(t):
+    r'\]\]'
+    t.lexer.begin('INITIAL')
+    return t
+
+def t_taga_SUBTAG(t):
+    r'\w+(\.\w+)*'
+    return t
+
+def t_TAGA(t):
+    r'\n+\s*\['
+    t.lexer.begin('taga')
+    return t
+
+def t_taga_NAMETAG(t):
+    r'[A-Za-z_\-\.]+'
+    return t
+
+
+def t_taga_FPR(t):
+    r'\]'
+    t.lexer.begin('INITIAL')
+    return t
+
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+def t_COMENTARIO(t):
+    r'\#.*\n'
+    pass
+
+def t_MULTILINESTRING(t):
+    r'"""[\n\w\s]*"""'
     return t
 
 def t_FLOAT(t):
     r'\d+\.\d+'
-    t.value = float(t.value)
     return t
 
-def t_BOOLEAN(t):
+def t_BOOL(t):
     r'true|false'
-    t.value = True if t.value == 'true' else False
     return t
 
-"""
-def t_NEWLINE(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
-    return t
-"""
 
-# Função para tratamento de erros
+t_ignore = ' \t'
+
 def t_error(t):
-    print(f'Caractere ilegal: {t.value[0]}')
+    print(f"Carácter ilegal {t.value[0]}")
     t.lexer.skip(1)
 
-# Construção do analisador léxico
+
 lexer = lex.lex()
+
 
 # Função para analisar um ficheiro TOML cujo nome é passado como argumento
 def analisar_ficheiro_toml(filename):
