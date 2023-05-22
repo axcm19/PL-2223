@@ -1,0 +1,43 @@
+{
+        "title": "TOML Example 3",
+        "owner": {
+                "name": "John Doe",
+                "dob": "1979-05-27"
+        },
+        "products": [
+                {
+                        "name": "Produto 1",
+                        "price": 25.99,
+                        "stock": 10
+                },
+                {
+                        "name": "Produto 2",
+                        "price": 14.5,
+                        "stock": 20
+                }
+        ],
+        "clients": {
+                "clienteUm": {
+                        "name": "Maria Silva",
+                        "age": 35,
+                        "email": "maria.silva@example.com"
+                },
+                "clienteDois": {
+                        "name": "João Santos",
+                        "age": 45,
+                        "email": "joao.santos@example.com"
+                }
+        },
+        "featured-products": [
+                {
+                        "id": "P001",
+                        "name": "Produto em destaque 1",
+                        "price": 199.99
+                },
+                {
+                        "id": "P002",
+                        "name": "Produto em destaque 2",
+                        "price": 299.99
+                }
+        ]
+}

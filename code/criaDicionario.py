@@ -1,11 +1,11 @@
 # ESTE MODULO SERVE PARA CRIAR UM DICIONÁRIO COM BASE NOS TOKENS OBTIDOS DO LEX
 
-# apenas um prototipo!!!
-
 import ply.yacc as yacc
 
 from lexico import tokens
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> regras gerais do parser
 
 def p_toml(p):
     """
@@ -54,8 +54,8 @@ def p_sections(p):
 
 def p_section(p):
     """
-    section : TAGA NAMETAG FPR content
-	        | TAGA NAMETAG FPR
+    section : DICT LISTNAME RBRACKET content
+	        | DICT LISTNAME RBRACKET
     """
     if len(p) == 5:
         p[0] = {p[2]: p[4]}
@@ -63,15 +63,13 @@ def p_section(p):
         p[0] = {p[2]: {}}
 
 
-def p_section_subtag(p):
+def p_section_dictname(p):
     """
-    section : TAGA SUBTAG FPR content
-	        | TAGA SUBTAG FPR
+    section : DICT DICTNAME RBRACKET content
+	        | DICT DICTNAME RBRACKET
     """
     if len(p) == 5:
         p[0] = {p[2]: p[4]}
-
-
     else:
         p[0] = {p[2]: {}}
 
@@ -83,10 +81,10 @@ def p_section_statements(p):
     p[0] = p[1]
 
 
-def p_section_aot_nametag(p):
+def p_section_openlist_listname(p):
     """
-    section : AOTA NAMETAG AOTF content
-            | AOTA NAMETAG AOTF
+    section : OPENLIST LISTNAME CLOSELIST content
+            | OPENLIST LISTNAME CLOSELIST
     """
     if len(p) == 5:
         p[0] = {p[2]: [p[4]]}
@@ -107,16 +105,16 @@ def p_content(p):
         p[0] = p[1]
 
 
-def p_statement_VAR(p):
+def p_statement_KEY(p):
     """
-    statement : VAR IGUAL value
+    statement : KEY EQUALS value
     """
     p[0] = {p[1]: p[3]}
 
 
 def p_statement_DOTTEDKEY(p):
     """
-    statement : DOTTEDKEY IGUAL value
+    statement : DOTTEDKEY EQUALS value
     """
     lista = p[1].split(".")
     dicionario = p[3]
@@ -129,8 +127,8 @@ def p_statement_DOTTEDKEY(p):
 
 def p_value(p):
     """
-    value : DATA
-          | TIME
+    value : DATE
+          | HOURS
           | list
           | inlinetable
     """
@@ -139,14 +137,14 @@ def p_value(p):
 
 def p_inlinetable(p):
     """
-    inlinetable : AC vars FC
+    inlinetable : LCHAVETA vars RCHAVETA
     """
     p[0] = p[2]
 
 
-def p_inlinetable_VARS(p):
+def p_inlinetable_KEYS(p):
     """
-    vars : vars VIRG var
+    vars : vars COMMA var
          | var
     """
     if len(p) == 4:
@@ -157,31 +155,20 @@ def p_inlinetable_VARS(p):
         p[0] = p[1]
 
 
-def p_inlinetable_VAR(p):
+def p_inlinetable_KEY(p):
     """
-    var : VAR IGUAL value
+    var : KEY EQUALS value
     """
     p[0] = {p[1]: p[3]}
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> regras do parser que definem o que é considerado como valor (value)
 
-def p_INT(p):
+def p_INTEGER(p):
     """
-    value : INT
+    value : INTEGER
     """
     p[0] = int(p[1])
-
-
-def p_INDIANFORMAT(p):
-    """
-    value : INDIANFORMAT
-    """
-    lista = p[1].split("_")
-    string = ""
-    for i, elemento in enumerate(lista):
-        if i % 2 == 0:
-            string += elemento
-    p[0] = int(string)
-
 
 def p_SIGNALINTS(p):
     """
@@ -225,24 +212,26 @@ def p_STRING(p):
 
     p[0] = p[1].split("\"")[1]
 
-
 def p_MULTILINESTRING(p):
     """
     value : MULTILINESTRING
     """
-    p[0] = p[1].split("\"\"\"")[1]
+    #p[0] = p[1].split("\"\"\"")[1]
+    p[0] = p[1]
 
 
-def p_BOOL(p):
+def p_BOOLEAN(p):
     """
-    value : BOOL
+    value : BOOLEAN
     """
     p[0] = bool(p[1])
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> regras do parser para as listas
 
 def p_list(p):
     """
-    list : APR elements FPR
+    list : LBRACKET elements RBRACKET
     """
 
     p[0] = p[2]
@@ -250,7 +239,7 @@ def p_list(p):
 
 def p_elements(p):
     """
-    elements : elements VIRG value
+    elements : elements COMMA value
              | value
     """
     if len(p) == 2:
@@ -260,18 +249,20 @@ def p_elements(p):
         p[1].append(p[3])
         p[0] = p[1]
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> regra para erro de sintaxe
 
 def p_error(p):
-    if p:
-        print(f"Erro de sintaxe na entrada {p.value}")
-    else:
-        print("Erro de sintaxe no final da entrada")
+   print(f"Erro de sintaxe na linha {p.lineno}: Token inválido {p.value}")
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> criação do parser
 
 parser = yacc.yacc()
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> função para analisar os tokens obtidos do lex e criar um dicionário
 
-# Função para analisar os tokens obtidos do lex e criar um dicionário
 def cria_dict(toml_file_path):
     with open(toml_file_path, 'r', encoding='UTF-8') as toml_file:
         data = toml_file.read()

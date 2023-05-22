@@ -5,20 +5,30 @@ import lexico
 import re
 import criaDicionario
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> função que cria o ficheiro json com o resultado do parser
+
 def toml_to_json(toml_file_path):
     try:
-        json_filename = re.search(r"\\([^.]*)", toml_file_path).group(1)
-        json_filename = "json_files\\"  + json_filename + ".json"
-        #toml_file = open(toml_file_path, encoding='UTF-8')
+        json_filename = re.search(r"(\\|\/)([^.]*)", toml_file_path).group(2)
+
+        # se a diretoria for num sistema Windows
+        if re.search(r"(\\)", toml_file_path):
+            json_filename = "json_files\\" + json_filename + ".json"
+
+        # se a diretoria for num sistema Linux
+        if re.search(r"(\/)", toml_file_path):
+            json_filename = "json_files\/" + json_filename + ".json"
+
+
         json_file = open(json_filename, "w", encoding='UTF-8')
-        #lines = toml_file.readlines()
 
         # criar um dicionário que vai ser gerado com os tokens obtidos do lex
         dict = {}
 
         print(f"\n")
         # faz a analise lexica e imprime os tokes no terminal
-        lista_tokens = lexico.analisar_ficheiro_toml(toml_file_path)
+        lexico.analisar_ficheiro_toml(toml_file_path)
         print("\n")
         dict = criaDicionario.cria_dict(toml_file_path)
 
@@ -30,7 +40,6 @@ def toml_to_json(toml_file_path):
 
     finally:
 
-        #toml_file.close()
         json_file.close()
 
 

@@ -1,6 +1,9 @@
 import os
 import converter
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ---> função main para arrancar o programa
+
 def main():
     toml_file_path = ""
     # construção da UI

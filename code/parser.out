@@ -2,9 +2,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    COMENTARIO
-    DP
-    SUBTAGA
+    COMMENT
 
 Grammar
 
@@ -12,82 +10,78 @@ Rule 0     S' -> toml
 Rule 1     toml -> sections
 Rule 2     sections -> sections section
 Rule 3     sections -> section
-Rule 4     section -> TAGA NAMETAG FPR content
-Rule 5     section -> TAGA NAMETAG FPR
-Rule 6     section -> TAGA SUBTAG FPR content
-Rule 7     section -> TAGA SUBTAG FPR
+Rule 4     section -> DICT LISTNAME RBRACKET content
+Rule 5     section -> DICT LISTNAME RBRACKET
+Rule 6     section -> DICT DICTNAME RBRACKET content
+Rule 7     section -> DICT DICTNAME RBRACKET
 Rule 8     section -> statement
-Rule 9     section -> AOTA NAMETAG AOTF content
-Rule 10    section -> AOTA NAMETAG AOTF
+Rule 9     section -> OPENLIST LISTNAME CLOSELIST content
+Rule 10    section -> OPENLIST LISTNAME CLOSELIST
 Rule 11    content -> content statement
 Rule 12    content -> statement
-Rule 13    statement -> VAR IGUAL value
-Rule 14    statement -> DOTTEDKEY IGUAL value
-Rule 15    value -> DATA
-Rule 16    value -> TIME
+Rule 13    statement -> KEY EQUALS value
+Rule 14    statement -> DOTTEDKEY EQUALS value
+Rule 15    value -> DATE
+Rule 16    value -> HOURS
 Rule 17    value -> list
 Rule 18    value -> inlinetable
-Rule 19    inlinetable -> AC vars FC
-Rule 20    vars -> vars VIRG var
+Rule 19    inlinetable -> LCHAVETA vars RCHAVETA
+Rule 20    vars -> vars COMMA var
 Rule 21    vars -> var
-Rule 22    var -> VAR IGUAL value
-Rule 23    value -> INT
-Rule 24    value -> INDIANFORMAT
-Rule 25    value -> SIGNALINTS
-Rule 26    value -> OCTAL
-Rule 27    value -> HEXADECIMAL
-Rule 28    value -> BINARY
-Rule 29    value -> FLOAT
-Rule 30    value -> STRING
-Rule 31    value -> MULTILINESTRING
-Rule 32    value -> BOOL
-Rule 33    list -> APR elements FPR
-Rule 34    elements -> elements VIRG value
-Rule 35    elements -> value
+Rule 22    var -> KEY EQUALS value
+Rule 23    value -> INTEGER
+Rule 24    value -> SIGNALINTS
+Rule 25    value -> OCTAL
+Rule 26    value -> HEXADECIMAL
+Rule 27    value -> BINARY
+Rule 28    value -> FLOAT
+Rule 29    value -> STRING
+Rule 30    value -> MULTILINESTRING
+Rule 31    value -> BOOLEAN
+Rule 32    list -> LBRACKET elements RBRACKET
+Rule 33    elements -> elements COMMA value
+Rule 34    elements -> value
 
 Terminals, with rules where they appear
 
-AC                   : 19
-AOTA                 : 9 10
-AOTF                 : 9 10
-APR                  : 33
-BINARY               : 28
-BOOL                 : 32
-COMENTARIO           : 
-DATA                 : 15
+BINARY               : 27
+BOOLEAN              : 31
+CLOSELIST            : 9 10
+COMMA                : 20 33
+COMMENT              : 
+DATE                 : 15
+DICT                 : 4 5 6 7
+DICTNAME             : 6 7
 DOTTEDKEY            : 14
-DP                   : 
-FC                   : 19
-FLOAT                : 29
-FPR                  : 4 5 6 7 33
-HEXADECIMAL          : 27
-IGUAL                : 13 14 22
-INDIANFORMAT         : 24
-INT                  : 23
-MULTILINESTRING      : 31
-NAMETAG              : 4 5 9 10
-OCTAL                : 26
-SIGNALINTS           : 25
-STRING               : 30
-SUBTAG               : 6 7
-SUBTAGA              : 
-TAGA                 : 4 5 6 7
-TIME                 : 16
-VAR                  : 13 22
-VIRG                 : 20 34
+EQUALS               : 13 14 22
+FLOAT                : 28
+HEXADECIMAL          : 26
+HOURS                : 16
+INTEGER              : 23
+KEY                  : 13 22
+LBRACKET             : 32
+LCHAVETA             : 19
+LISTNAME             : 4 5 9 10
+MULTILINESTRING      : 30
+OCTAL                : 25
+OPENLIST             : 9 10
+RBRACKET             : 4 5 6 7 32
+RCHAVETA             : 19
+SIGNALINTS           : 24
+STRING               : 29
 error                : 
 
 Nonterminals, with rules where they appear
 
 content              : 4 6 9 11
-elements             : 33 34
+elements             : 32 33
 inlinetable          : 18
 list                 : 17
 section              : 2 3
 sections             : 1 2
 statement            : 8 11 12
 toml                 : 0
-value                : 13 14 22 34 35
+value                : 13 14 22 33 34
 var                  : 20 21
 vars                 : 19 20
 
@@ -99,19 +93,19 @@ state 0
     (1) toml -> . sections
     (2) sections -> . sections section
     (3) sections -> . section
-    (4) section -> . TAGA NAMETAG FPR content
-    (5) section -> . TAGA NAMETAG FPR
-    (6) section -> . TAGA SUBTAG FPR content
-    (7) section -> . TAGA SUBTAG FPR
+    (4) section -> . DICT LISTNAME RBRACKET content
+    (5) section -> . DICT LISTNAME RBRACKET
+    (6) section -> . DICT DICTNAME RBRACKET content
+    (7) section -> . DICT DICTNAME RBRACKET
     (8) section -> . statement
-    (9) section -> . AOTA NAMETAG AOTF content
-    (10) section -> . AOTA NAMETAG AOTF
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (9) section -> . OPENLIST LISTNAME CLOSELIST content
+    (10) section -> . OPENLIST LISTNAME CLOSELIST
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
-    TAGA            shift and go to state 4
-    AOTA            shift and go to state 6
-    VAR             shift and go to state 7
+    DICT            shift and go to state 4
+    OPENLIST        shift and go to state 6
+    KEY             shift and go to state 7
     DOTTEDKEY       shift and go to state 8
 
     toml                           shift and go to state 1
@@ -129,20 +123,20 @@ state 2
 
     (1) toml -> sections .
     (2) sections -> sections . section
-    (4) section -> . TAGA NAMETAG FPR content
-    (5) section -> . TAGA NAMETAG FPR
-    (6) section -> . TAGA SUBTAG FPR content
-    (7) section -> . TAGA SUBTAG FPR
+    (4) section -> . DICT LISTNAME RBRACKET content
+    (5) section -> . DICT LISTNAME RBRACKET
+    (6) section -> . DICT DICTNAME RBRACKET content
+    (7) section -> . DICT DICTNAME RBRACKET
     (8) section -> . statement
-    (9) section -> . AOTA NAMETAG AOTF content
-    (10) section -> . AOTA NAMETAG AOTF
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (9) section -> . OPENLIST LISTNAME CLOSELIST content
+    (10) section -> . OPENLIST LISTNAME CLOSELIST
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
     $end            reduce using rule 1 (toml -> sections .)
-    TAGA            shift and go to state 4
-    AOTA            shift and go to state 6
-    VAR             shift and go to state 7
+    DICT            shift and go to state 4
+    OPENLIST        shift and go to state 6
+    KEY             shift and go to state 7
     DOTTEDKEY       shift and go to state 8
 
     section                        shift and go to state 9
@@ -152,126 +146,124 @@ state 3
 
     (3) sections -> section .
 
-    TAGA            reduce using rule 3 (sections -> section .)
-    AOTA            reduce using rule 3 (sections -> section .)
-    VAR             reduce using rule 3 (sections -> section .)
+    DICT            reduce using rule 3 (sections -> section .)
+    OPENLIST        reduce using rule 3 (sections -> section .)
+    KEY             reduce using rule 3 (sections -> section .)
     DOTTEDKEY       reduce using rule 3 (sections -> section .)
     $end            reduce using rule 3 (sections -> section .)
 
 
 state 4
 
-    (4) section -> TAGA . NAMETAG FPR content
-    (5) section -> TAGA . NAMETAG FPR
-    (6) section -> TAGA . SUBTAG FPR content
-    (7) section -> TAGA . SUBTAG FPR
+    (4) section -> DICT . LISTNAME RBRACKET content
+    (5) section -> DICT . LISTNAME RBRACKET
+    (6) section -> DICT . DICTNAME RBRACKET content
+    (7) section -> DICT . DICTNAME RBRACKET
 
-    NAMETAG         shift and go to state 10
-    SUBTAG          shift and go to state 11
+    LISTNAME        shift and go to state 10
+    DICTNAME        shift and go to state 11
 
 
 state 5
 
     (8) section -> statement .
 
-    TAGA            reduce using rule 8 (section -> statement .)
-    AOTA            reduce using rule 8 (section -> statement .)
-    VAR             reduce using rule 8 (section -> statement .)
+    DICT            reduce using rule 8 (section -> statement .)
+    OPENLIST        reduce using rule 8 (section -> statement .)
+    KEY             reduce using rule 8 (section -> statement .)
     DOTTEDKEY       reduce using rule 8 (section -> statement .)
     $end            reduce using rule 8 (section -> statement .)
 
 
 state 6
 
-    (9) section -> AOTA . NAMETAG AOTF content
-    (10) section -> AOTA . NAMETAG AOTF
+    (9) section -> OPENLIST . LISTNAME CLOSELIST content
+    (10) section -> OPENLIST . LISTNAME CLOSELIST
 
-    NAMETAG         shift and go to state 12
+    LISTNAME        shift and go to state 12
 
 
 state 7
 
-    (13) statement -> VAR . IGUAL value
+    (13) statement -> KEY . EQUALS value
 
-    IGUAL           shift and go to state 13
+    EQUALS          shift and go to state 13
 
 
 state 8
 
-    (14) statement -> DOTTEDKEY . IGUAL value
+    (14) statement -> DOTTEDKEY . EQUALS value
 
-    IGUAL           shift and go to state 14
+    EQUALS          shift and go to state 14
 
 
 state 9
 
     (2) sections -> sections section .
 
-    TAGA            reduce using rule 2 (sections -> sections section .)
-    AOTA            reduce using rule 2 (sections -> sections section .)
-    VAR             reduce using rule 2 (sections -> sections section .)
+    DICT            reduce using rule 2 (sections -> sections section .)
+    OPENLIST        reduce using rule 2 (sections -> sections section .)
+    KEY             reduce using rule 2 (sections -> sections section .)
     DOTTEDKEY       reduce using rule 2 (sections -> sections section .)
     $end            reduce using rule 2 (sections -> sections section .)
 
 
 state 10
 
-    (4) section -> TAGA NAMETAG . FPR content
-    (5) section -> TAGA NAMETAG . FPR
+    (4) section -> DICT LISTNAME . RBRACKET content
+    (5) section -> DICT LISTNAME . RBRACKET
 
-    FPR             shift and go to state 15
+    RBRACKET        shift and go to state 15
 
 
 state 11
 
-    (6) section -> TAGA SUBTAG . FPR content
-    (7) section -> TAGA SUBTAG . FPR
+    (6) section -> DICT DICTNAME . RBRACKET content
+    (7) section -> DICT DICTNAME . RBRACKET
 
-    FPR             shift and go to state 16
+    RBRACKET        shift and go to state 16
 
 
 state 12
 
-    (9) section -> AOTA NAMETAG . AOTF content
-    (10) section -> AOTA NAMETAG . AOTF
+    (9) section -> OPENLIST LISTNAME . CLOSELIST content
+    (10) section -> OPENLIST LISTNAME . CLOSELIST
 
-    AOTF            shift and go to state 17
+    CLOSELIST       shift and go to state 17
 
 
 state 13
 
-    (13) statement -> VAR IGUAL . value
-    (15) value -> . DATA
-    (16) value -> . TIME
+    (13) statement -> KEY EQUALS . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
     (17) value -> . list
     (18) value -> . inlinetable
-    (23) value -> . INT
-    (24) value -> . INDIANFORMAT
-    (25) value -> . SIGNALINTS
-    (26) value -> . OCTAL
-    (27) value -> . HEXADECIMAL
-    (28) value -> . BINARY
-    (29) value -> . FLOAT
-    (30) value -> . STRING
-    (31) value -> . MULTILINESTRING
-    (32) value -> . BOOL
-    (33) list -> . APR elements FPR
-    (19) inlinetable -> . AC vars FC
+    (23) value -> . INTEGER
+    (24) value -> . SIGNALINTS
+    (25) value -> . OCTAL
+    (26) value -> . HEXADECIMAL
+    (27) value -> . BINARY
+    (28) value -> . FLOAT
+    (29) value -> . STRING
+    (30) value -> . MULTILINESTRING
+    (31) value -> . BOOLEAN
+    (32) list -> . LBRACKET elements RBRACKET
+    (19) inlinetable -> . LCHAVETA vars RCHAVETA
 
-    DATA            shift and go to state 19
-    TIME            shift and go to state 20
-    INT             shift and go to state 23
-    INDIANFORMAT    shift and go to state 24
-    SIGNALINTS      shift and go to state 25
-    OCTAL           shift and go to state 26
-    HEXADECIMAL     shift and go to state 27
-    BINARY          shift and go to state 28
-    FLOAT           shift and go to state 29
-    STRING          shift and go to state 30
-    MULTILINESTRING shift and go to state 31
-    BOOL            shift and go to state 32
-    APR             shift and go to state 33
-    AC              shift and go to state 34
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    SIGNALINTS      shift and go to state 24
+    OCTAL           shift and go to state 25
+    HEXADECIMAL     shift and go to state 26
+    BINARY          shift and go to state 27
+    FLOAT           shift and go to state 28
+    STRING          shift and go to state 29
+    MULTILINESTRING shift and go to state 30
+    BOOLEAN         shift and go to state 31
+    LBRACKET        shift and go to state 32
+    LCHAVETA        shift and go to state 33
 
     value                          shift and go to state 18
     list                           shift and go to state 21
@@ -279,657 +271,635 @@ state 13
 
 state 14
 
-    (14) statement -> DOTTEDKEY IGUAL . value
-    (15) value -> . DATA
-    (16) value -> . TIME
+    (14) statement -> DOTTEDKEY EQUALS . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
     (17) value -> . list
     (18) value -> . inlinetable
-    (23) value -> . INT
-    (24) value -> . INDIANFORMAT
-    (25) value -> . SIGNALINTS
-    (26) value -> . OCTAL
-    (27) value -> . HEXADECIMAL
-    (28) value -> . BINARY
-    (29) value -> . FLOAT
-    (30) value -> . STRING
-    (31) value -> . MULTILINESTRING
-    (32) value -> . BOOL
-    (33) list -> . APR elements FPR
-    (19) inlinetable -> . AC vars FC
+    (23) value -> . INTEGER
+    (24) value -> . SIGNALINTS
+    (25) value -> . OCTAL
+    (26) value -> . HEXADECIMAL
+    (27) value -> . BINARY
+    (28) value -> . FLOAT
+    (29) value -> . STRING
+    (30) value -> . MULTILINESTRING
+    (31) value -> . BOOLEAN
+    (32) list -> . LBRACKET elements RBRACKET
+    (19) inlinetable -> . LCHAVETA vars RCHAVETA
 
-    DATA            shift and go to state 19
-    TIME            shift and go to state 20
-    INT             shift and go to state 23
-    INDIANFORMAT    shift and go to state 24
-    SIGNALINTS      shift and go to state 25
-    OCTAL           shift and go to state 26
-    HEXADECIMAL     shift and go to state 27
-    BINARY          shift and go to state 28
-    FLOAT           shift and go to state 29
-    STRING          shift and go to state 30
-    MULTILINESTRING shift and go to state 31
-    BOOL            shift and go to state 32
-    APR             shift and go to state 33
-    AC              shift and go to state 34
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    SIGNALINTS      shift and go to state 24
+    OCTAL           shift and go to state 25
+    HEXADECIMAL     shift and go to state 26
+    BINARY          shift and go to state 27
+    FLOAT           shift and go to state 28
+    STRING          shift and go to state 29
+    MULTILINESTRING shift and go to state 30
+    BOOLEAN         shift and go to state 31
+    LBRACKET        shift and go to state 32
+    LCHAVETA        shift and go to state 33
 
-    value                          shift and go to state 35
+    value                          shift and go to state 34
     list                           shift and go to state 21
     inlinetable                    shift and go to state 22
 
 state 15
 
-    (4) section -> TAGA NAMETAG FPR . content
-    (5) section -> TAGA NAMETAG FPR .
+    (4) section -> DICT LISTNAME RBRACKET . content
+    (5) section -> DICT LISTNAME RBRACKET .
     (11) content -> . content statement
     (12) content -> . statement
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
-  ! shift/reduce conflict for VAR resolved as shift
+  ! shift/reduce conflict for KEY resolved as shift
   ! shift/reduce conflict for DOTTEDKEY resolved as shift
-    TAGA            reduce using rule 5 (section -> TAGA NAMETAG FPR .)
-    AOTA            reduce using rule 5 (section -> TAGA NAMETAG FPR .)
-    $end            reduce using rule 5 (section -> TAGA NAMETAG FPR .)
-    VAR             shift and go to state 7
+    DICT            reduce using rule 5 (section -> DICT LISTNAME RBRACKET .)
+    OPENLIST        reduce using rule 5 (section -> DICT LISTNAME RBRACKET .)
+    $end            reduce using rule 5 (section -> DICT LISTNAME RBRACKET .)
+    KEY             shift and go to state 7
     DOTTEDKEY       shift and go to state 8
 
-  ! VAR             [ reduce using rule 5 (section -> TAGA NAMETAG FPR .) ]
-  ! DOTTEDKEY       [ reduce using rule 5 (section -> TAGA NAMETAG FPR .) ]
+  ! KEY             [ reduce using rule 5 (section -> DICT LISTNAME RBRACKET .) ]
+  ! DOTTEDKEY       [ reduce using rule 5 (section -> DICT LISTNAME RBRACKET .) ]
 
-    content                        shift and go to state 36
-    statement                      shift and go to state 37
+    content                        shift and go to state 35
+    statement                      shift and go to state 36
 
 state 16
 
-    (6) section -> TAGA SUBTAG FPR . content
-    (7) section -> TAGA SUBTAG FPR .
+    (6) section -> DICT DICTNAME RBRACKET . content
+    (7) section -> DICT DICTNAME RBRACKET .
     (11) content -> . content statement
     (12) content -> . statement
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
-  ! shift/reduce conflict for VAR resolved as shift
+  ! shift/reduce conflict for KEY resolved as shift
   ! shift/reduce conflict for DOTTEDKEY resolved as shift
-    TAGA            reduce using rule 7 (section -> TAGA SUBTAG FPR .)
-    AOTA            reduce using rule 7 (section -> TAGA SUBTAG FPR .)
-    $end            reduce using rule 7 (section -> TAGA SUBTAG FPR .)
-    VAR             shift and go to state 7
+    DICT            reduce using rule 7 (section -> DICT DICTNAME RBRACKET .)
+    OPENLIST        reduce using rule 7 (section -> DICT DICTNAME RBRACKET .)
+    $end            reduce using rule 7 (section -> DICT DICTNAME RBRACKET .)
+    KEY             shift and go to state 7
     DOTTEDKEY       shift and go to state 8
 
-  ! VAR             [ reduce using rule 7 (section -> TAGA SUBTAG FPR .) ]
-  ! DOTTEDKEY       [ reduce using rule 7 (section -> TAGA SUBTAG FPR .) ]
+  ! KEY             [ reduce using rule 7 (section -> DICT DICTNAME RBRACKET .) ]
+  ! DOTTEDKEY       [ reduce using rule 7 (section -> DICT DICTNAME RBRACKET .) ]
 
-    content                        shift and go to state 38
-    statement                      shift and go to state 37
+    content                        shift and go to state 37
+    statement                      shift and go to state 36
 
 state 17
 
-    (9) section -> AOTA NAMETAG AOTF . content
-    (10) section -> AOTA NAMETAG AOTF .
+    (9) section -> OPENLIST LISTNAME CLOSELIST . content
+    (10) section -> OPENLIST LISTNAME CLOSELIST .
     (11) content -> . content statement
     (12) content -> . statement
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
-  ! shift/reduce conflict for VAR resolved as shift
+  ! shift/reduce conflict for KEY resolved as shift
   ! shift/reduce conflict for DOTTEDKEY resolved as shift
-    TAGA            reduce using rule 10 (section -> AOTA NAMETAG AOTF .)
-    AOTA            reduce using rule 10 (section -> AOTA NAMETAG AOTF .)
-    $end            reduce using rule 10 (section -> AOTA NAMETAG AOTF .)
-    VAR             shift and go to state 7
+    DICT            reduce using rule 10 (section -> OPENLIST LISTNAME CLOSELIST .)
+    OPENLIST        reduce using rule 10 (section -> OPENLIST LISTNAME CLOSELIST .)
+    $end            reduce using rule 10 (section -> OPENLIST LISTNAME CLOSELIST .)
+    KEY             shift and go to state 7
     DOTTEDKEY       shift and go to state 8
 
-  ! VAR             [ reduce using rule 10 (section -> AOTA NAMETAG AOTF .) ]
-  ! DOTTEDKEY       [ reduce using rule 10 (section -> AOTA NAMETAG AOTF .) ]
+  ! KEY             [ reduce using rule 10 (section -> OPENLIST LISTNAME CLOSELIST .) ]
+  ! DOTTEDKEY       [ reduce using rule 10 (section -> OPENLIST LISTNAME CLOSELIST .) ]
 
-    content                        shift and go to state 39
-    statement                      shift and go to state 37
+    content                        shift and go to state 38
+    statement                      shift and go to state 36
 
 state 18
 
-    (13) statement -> VAR IGUAL value .
+    (13) statement -> KEY EQUALS value .
 
-    TAGA            reduce using rule 13 (statement -> VAR IGUAL value .)
-    AOTA            reduce using rule 13 (statement -> VAR IGUAL value .)
-    VAR             reduce using rule 13 (statement -> VAR IGUAL value .)
-    DOTTEDKEY       reduce using rule 13 (statement -> VAR IGUAL value .)
-    $end            reduce using rule 13 (statement -> VAR IGUAL value .)
+    DICT            reduce using rule 13 (statement -> KEY EQUALS value .)
+    OPENLIST        reduce using rule 13 (statement -> KEY EQUALS value .)
+    KEY             reduce using rule 13 (statement -> KEY EQUALS value .)
+    DOTTEDKEY       reduce using rule 13 (statement -> KEY EQUALS value .)
+    $end            reduce using rule 13 (statement -> KEY EQUALS value .)
 
 
 state 19
 
-    (15) value -> DATA .
+    (15) value -> DATE .
 
-    TAGA            reduce using rule 15 (value -> DATA .)
-    AOTA            reduce using rule 15 (value -> DATA .)
-    VAR             reduce using rule 15 (value -> DATA .)
-    DOTTEDKEY       reduce using rule 15 (value -> DATA .)
-    $end            reduce using rule 15 (value -> DATA .)
-    FPR             reduce using rule 15 (value -> DATA .)
-    VIRG            reduce using rule 15 (value -> DATA .)
-    FC              reduce using rule 15 (value -> DATA .)
+    DICT            reduce using rule 15 (value -> DATE .)
+    OPENLIST        reduce using rule 15 (value -> DATE .)
+    KEY             reduce using rule 15 (value -> DATE .)
+    DOTTEDKEY       reduce using rule 15 (value -> DATE .)
+    $end            reduce using rule 15 (value -> DATE .)
+    RBRACKET        reduce using rule 15 (value -> DATE .)
+    COMMA           reduce using rule 15 (value -> DATE .)
+    RCHAVETA        reduce using rule 15 (value -> DATE .)
 
 
 state 20
 
-    (16) value -> TIME .
+    (16) value -> HOURS .
 
-    TAGA            reduce using rule 16 (value -> TIME .)
-    AOTA            reduce using rule 16 (value -> TIME .)
-    VAR             reduce using rule 16 (value -> TIME .)
-    DOTTEDKEY       reduce using rule 16 (value -> TIME .)
-    $end            reduce using rule 16 (value -> TIME .)
-    FPR             reduce using rule 16 (value -> TIME .)
-    VIRG            reduce using rule 16 (value -> TIME .)
-    FC              reduce using rule 16 (value -> TIME .)
+    DICT            reduce using rule 16 (value -> HOURS .)
+    OPENLIST        reduce using rule 16 (value -> HOURS .)
+    KEY             reduce using rule 16 (value -> HOURS .)
+    DOTTEDKEY       reduce using rule 16 (value -> HOURS .)
+    $end            reduce using rule 16 (value -> HOURS .)
+    RBRACKET        reduce using rule 16 (value -> HOURS .)
+    COMMA           reduce using rule 16 (value -> HOURS .)
+    RCHAVETA        reduce using rule 16 (value -> HOURS .)
 
 
 state 21
 
     (17) value -> list .
 
-    TAGA            reduce using rule 17 (value -> list .)
-    AOTA            reduce using rule 17 (value -> list .)
-    VAR             reduce using rule 17 (value -> list .)
+    DICT            reduce using rule 17 (value -> list .)
+    OPENLIST        reduce using rule 17 (value -> list .)
+    KEY             reduce using rule 17 (value -> list .)
     DOTTEDKEY       reduce using rule 17 (value -> list .)
     $end            reduce using rule 17 (value -> list .)
-    FPR             reduce using rule 17 (value -> list .)
-    VIRG            reduce using rule 17 (value -> list .)
-    FC              reduce using rule 17 (value -> list .)
+    RBRACKET        reduce using rule 17 (value -> list .)
+    COMMA           reduce using rule 17 (value -> list .)
+    RCHAVETA        reduce using rule 17 (value -> list .)
 
 
 state 22
 
     (18) value -> inlinetable .
 
-    TAGA            reduce using rule 18 (value -> inlinetable .)
-    AOTA            reduce using rule 18 (value -> inlinetable .)
-    VAR             reduce using rule 18 (value -> inlinetable .)
+    DICT            reduce using rule 18 (value -> inlinetable .)
+    OPENLIST        reduce using rule 18 (value -> inlinetable .)
+    KEY             reduce using rule 18 (value -> inlinetable .)
     DOTTEDKEY       reduce using rule 18 (value -> inlinetable .)
     $end            reduce using rule 18 (value -> inlinetable .)
-    FPR             reduce using rule 18 (value -> inlinetable .)
-    VIRG            reduce using rule 18 (value -> inlinetable .)
-    FC              reduce using rule 18 (value -> inlinetable .)
+    RBRACKET        reduce using rule 18 (value -> inlinetable .)
+    COMMA           reduce using rule 18 (value -> inlinetable .)
+    RCHAVETA        reduce using rule 18 (value -> inlinetable .)
 
 
 state 23
 
-    (23) value -> INT .
+    (23) value -> INTEGER .
 
-    TAGA            reduce using rule 23 (value -> INT .)
-    AOTA            reduce using rule 23 (value -> INT .)
-    VAR             reduce using rule 23 (value -> INT .)
-    DOTTEDKEY       reduce using rule 23 (value -> INT .)
-    $end            reduce using rule 23 (value -> INT .)
-    FPR             reduce using rule 23 (value -> INT .)
-    VIRG            reduce using rule 23 (value -> INT .)
-    FC              reduce using rule 23 (value -> INT .)
+    DICT            reduce using rule 23 (value -> INTEGER .)
+    OPENLIST        reduce using rule 23 (value -> INTEGER .)
+    KEY             reduce using rule 23 (value -> INTEGER .)
+    DOTTEDKEY       reduce using rule 23 (value -> INTEGER .)
+    $end            reduce using rule 23 (value -> INTEGER .)
+    RBRACKET        reduce using rule 23 (value -> INTEGER .)
+    COMMA           reduce using rule 23 (value -> INTEGER .)
+    RCHAVETA        reduce using rule 23 (value -> INTEGER .)
 
 
 state 24
 
-    (24) value -> INDIANFORMAT .
+    (24) value -> SIGNALINTS .
 
-    TAGA            reduce using rule 24 (value -> INDIANFORMAT .)
-    AOTA            reduce using rule 24 (value -> INDIANFORMAT .)
-    VAR             reduce using rule 24 (value -> INDIANFORMAT .)
-    DOTTEDKEY       reduce using rule 24 (value -> INDIANFORMAT .)
-    $end            reduce using rule 24 (value -> INDIANFORMAT .)
-    FPR             reduce using rule 24 (value -> INDIANFORMAT .)
-    VIRG            reduce using rule 24 (value -> INDIANFORMAT .)
-    FC              reduce using rule 24 (value -> INDIANFORMAT .)
+    DICT            reduce using rule 24 (value -> SIGNALINTS .)
+    OPENLIST        reduce using rule 24 (value -> SIGNALINTS .)
+    KEY             reduce using rule 24 (value -> SIGNALINTS .)
+    DOTTEDKEY       reduce using rule 24 (value -> SIGNALINTS .)
+    $end            reduce using rule 24 (value -> SIGNALINTS .)
+    RBRACKET        reduce using rule 24 (value -> SIGNALINTS .)
+    COMMA           reduce using rule 24 (value -> SIGNALINTS .)
+    RCHAVETA        reduce using rule 24 (value -> SIGNALINTS .)
 
 
 state 25
 
-    (25) value -> SIGNALINTS .
+    (25) value -> OCTAL .
 
-    TAGA            reduce using rule 25 (value -> SIGNALINTS .)
-    AOTA            reduce using rule 25 (value -> SIGNALINTS .)
-    VAR             reduce using rule 25 (value -> SIGNALINTS .)
-    DOTTEDKEY       reduce using rule 25 (value -> SIGNALINTS .)
-    $end            reduce using rule 25 (value -> SIGNALINTS .)
-    FPR             reduce using rule 25 (value -> SIGNALINTS .)
-    VIRG            reduce using rule 25 (value -> SIGNALINTS .)
-    FC              reduce using rule 25 (value -> SIGNALINTS .)
+    DICT            reduce using rule 25 (value -> OCTAL .)
+    OPENLIST        reduce using rule 25 (value -> OCTAL .)
+    KEY             reduce using rule 25 (value -> OCTAL .)
+    DOTTEDKEY       reduce using rule 25 (value -> OCTAL .)
+    $end            reduce using rule 25 (value -> OCTAL .)
+    RBRACKET        reduce using rule 25 (value -> OCTAL .)
+    COMMA           reduce using rule 25 (value -> OCTAL .)
+    RCHAVETA        reduce using rule 25 (value -> OCTAL .)
 
 
 state 26
 
-    (26) value -> OCTAL .
+    (26) value -> HEXADECIMAL .
 
-    TAGA            reduce using rule 26 (value -> OCTAL .)
-    AOTA            reduce using rule 26 (value -> OCTAL .)
-    VAR             reduce using rule 26 (value -> OCTAL .)
-    DOTTEDKEY       reduce using rule 26 (value -> OCTAL .)
-    $end            reduce using rule 26 (value -> OCTAL .)
-    FPR             reduce using rule 26 (value -> OCTAL .)
-    VIRG            reduce using rule 26 (value -> OCTAL .)
-    FC              reduce using rule 26 (value -> OCTAL .)
+    DICT            reduce using rule 26 (value -> HEXADECIMAL .)
+    OPENLIST        reduce using rule 26 (value -> HEXADECIMAL .)
+    KEY             reduce using rule 26 (value -> HEXADECIMAL .)
+    DOTTEDKEY       reduce using rule 26 (value -> HEXADECIMAL .)
+    $end            reduce using rule 26 (value -> HEXADECIMAL .)
+    RBRACKET        reduce using rule 26 (value -> HEXADECIMAL .)
+    COMMA           reduce using rule 26 (value -> HEXADECIMAL .)
+    RCHAVETA        reduce using rule 26 (value -> HEXADECIMAL .)
 
 
 state 27
 
-    (27) value -> HEXADECIMAL .
+    (27) value -> BINARY .
 
-    TAGA            reduce using rule 27 (value -> HEXADECIMAL .)
-    AOTA            reduce using rule 27 (value -> HEXADECIMAL .)
-    VAR             reduce using rule 27 (value -> HEXADECIMAL .)
-    DOTTEDKEY       reduce using rule 27 (value -> HEXADECIMAL .)
-    $end            reduce using rule 27 (value -> HEXADECIMAL .)
-    FPR             reduce using rule 27 (value -> HEXADECIMAL .)
-    VIRG            reduce using rule 27 (value -> HEXADECIMAL .)
-    FC              reduce using rule 27 (value -> HEXADECIMAL .)
+    DICT            reduce using rule 27 (value -> BINARY .)
+    OPENLIST        reduce using rule 27 (value -> BINARY .)
+    KEY             reduce using rule 27 (value -> BINARY .)
+    DOTTEDKEY       reduce using rule 27 (value -> BINARY .)
+    $end            reduce using rule 27 (value -> BINARY .)
+    RBRACKET        reduce using rule 27 (value -> BINARY .)
+    COMMA           reduce using rule 27 (value -> BINARY .)
+    RCHAVETA        reduce using rule 27 (value -> BINARY .)
 
 
 state 28
 
-    (28) value -> BINARY .
+    (28) value -> FLOAT .
 
-    TAGA            reduce using rule 28 (value -> BINARY .)
-    AOTA            reduce using rule 28 (value -> BINARY .)
-    VAR             reduce using rule 28 (value -> BINARY .)
-    DOTTEDKEY       reduce using rule 28 (value -> BINARY .)
-    $end            reduce using rule 28 (value -> BINARY .)
-    FPR             reduce using rule 28 (value -> BINARY .)
-    VIRG            reduce using rule 28 (value -> BINARY .)
-    FC              reduce using rule 28 (value -> BINARY .)
+    DICT            reduce using rule 28 (value -> FLOAT .)
+    OPENLIST        reduce using rule 28 (value -> FLOAT .)
+    KEY             reduce using rule 28 (value -> FLOAT .)
+    DOTTEDKEY       reduce using rule 28 (value -> FLOAT .)
+    $end            reduce using rule 28 (value -> FLOAT .)
+    RBRACKET        reduce using rule 28 (value -> FLOAT .)
+    COMMA           reduce using rule 28 (value -> FLOAT .)
+    RCHAVETA        reduce using rule 28 (value -> FLOAT .)
 
 
 state 29
 
-    (29) value -> FLOAT .
+    (29) value -> STRING .
 
-    TAGA            reduce using rule 29 (value -> FLOAT .)
-    AOTA            reduce using rule 29 (value -> FLOAT .)
-    VAR             reduce using rule 29 (value -> FLOAT .)
-    DOTTEDKEY       reduce using rule 29 (value -> FLOAT .)
-    $end            reduce using rule 29 (value -> FLOAT .)
-    FPR             reduce using rule 29 (value -> FLOAT .)
-    VIRG            reduce using rule 29 (value -> FLOAT .)
-    FC              reduce using rule 29 (value -> FLOAT .)
+    DICT            reduce using rule 29 (value -> STRING .)
+    OPENLIST        reduce using rule 29 (value -> STRING .)
+    KEY             reduce using rule 29 (value -> STRING .)
+    DOTTEDKEY       reduce using rule 29 (value -> STRING .)
+    $end            reduce using rule 29 (value -> STRING .)
+    RBRACKET        reduce using rule 29 (value -> STRING .)
+    COMMA           reduce using rule 29 (value -> STRING .)
+    RCHAVETA        reduce using rule 29 (value -> STRING .)
 
 
 state 30
 
-    (30) value -> STRING .
+    (30) value -> MULTILINESTRING .
 
-    TAGA            reduce using rule 30 (value -> STRING .)
-    AOTA            reduce using rule 30 (value -> STRING .)
-    VAR             reduce using rule 30 (value -> STRING .)
-    DOTTEDKEY       reduce using rule 30 (value -> STRING .)
-    $end            reduce using rule 30 (value -> STRING .)
-    FPR             reduce using rule 30 (value -> STRING .)
-    VIRG            reduce using rule 30 (value -> STRING .)
-    FC              reduce using rule 30 (value -> STRING .)
+    DICT            reduce using rule 30 (value -> MULTILINESTRING .)
+    OPENLIST        reduce using rule 30 (value -> MULTILINESTRING .)
+    KEY             reduce using rule 30 (value -> MULTILINESTRING .)
+    DOTTEDKEY       reduce using rule 30 (value -> MULTILINESTRING .)
+    $end            reduce using rule 30 (value -> MULTILINESTRING .)
+    RBRACKET        reduce using rule 30 (value -> MULTILINESTRING .)
+    COMMA           reduce using rule 30 (value -> MULTILINESTRING .)
+    RCHAVETA        reduce using rule 30 (value -> MULTILINESTRING .)
 
 
 state 31
 
-    (31) value -> MULTILINESTRING .
+    (31) value -> BOOLEAN .
 
-    TAGA            reduce using rule 31 (value -> MULTILINESTRING .)
-    AOTA            reduce using rule 31 (value -> MULTILINESTRING .)
-    VAR             reduce using rule 31 (value -> MULTILINESTRING .)
-    DOTTEDKEY       reduce using rule 31 (value -> MULTILINESTRING .)
-    $end            reduce using rule 31 (value -> MULTILINESTRING .)
-    FPR             reduce using rule 31 (value -> MULTILINESTRING .)
-    VIRG            reduce using rule 31 (value -> MULTILINESTRING .)
-    FC              reduce using rule 31 (value -> MULTILINESTRING .)
+    DICT            reduce using rule 31 (value -> BOOLEAN .)
+    OPENLIST        reduce using rule 31 (value -> BOOLEAN .)
+    KEY             reduce using rule 31 (value -> BOOLEAN .)
+    DOTTEDKEY       reduce using rule 31 (value -> BOOLEAN .)
+    $end            reduce using rule 31 (value -> BOOLEAN .)
+    RBRACKET        reduce using rule 31 (value -> BOOLEAN .)
+    COMMA           reduce using rule 31 (value -> BOOLEAN .)
+    RCHAVETA        reduce using rule 31 (value -> BOOLEAN .)
 
 
 state 32
 
-    (32) value -> BOOL .
-
-    TAGA            reduce using rule 32 (value -> BOOL .)
-    AOTA            reduce using rule 32 (value -> BOOL .)
-    VAR             reduce using rule 32 (value -> BOOL .)
-    DOTTEDKEY       reduce using rule 32 (value -> BOOL .)
-    $end            reduce using rule 32 (value -> BOOL .)
-    FPR             reduce using rule 32 (value -> BOOL .)
-    VIRG            reduce using rule 32 (value -> BOOL .)
-    FC              reduce using rule 32 (value -> BOOL .)
-
-
-state 33
-
-    (33) list -> APR . elements FPR
-    (34) elements -> . elements VIRG value
-    (35) elements -> . value
-    (15) value -> . DATA
-    (16) value -> . TIME
+    (32) list -> LBRACKET . elements RBRACKET
+    (33) elements -> . elements COMMA value
+    (34) elements -> . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
     (17) value -> . list
     (18) value -> . inlinetable
-    (23) value -> . INT
-    (24) value -> . INDIANFORMAT
-    (25) value -> . SIGNALINTS
-    (26) value -> . OCTAL
-    (27) value -> . HEXADECIMAL
-    (28) value -> . BINARY
-    (29) value -> . FLOAT
-    (30) value -> . STRING
-    (31) value -> . MULTILINESTRING
-    (32) value -> . BOOL
-    (33) list -> . APR elements FPR
-    (19) inlinetable -> . AC vars FC
+    (23) value -> . INTEGER
+    (24) value -> . SIGNALINTS
+    (25) value -> . OCTAL
+    (26) value -> . HEXADECIMAL
+    (27) value -> . BINARY
+    (28) value -> . FLOAT
+    (29) value -> . STRING
+    (30) value -> . MULTILINESTRING
+    (31) value -> . BOOLEAN
+    (32) list -> . LBRACKET elements RBRACKET
+    (19) inlinetable -> . LCHAVETA vars RCHAVETA
 
-    DATA            shift and go to state 19
-    TIME            shift and go to state 20
-    INT             shift and go to state 23
-    INDIANFORMAT    shift and go to state 24
-    SIGNALINTS      shift and go to state 25
-    OCTAL           shift and go to state 26
-    HEXADECIMAL     shift and go to state 27
-    BINARY          shift and go to state 28
-    FLOAT           shift and go to state 29
-    STRING          shift and go to state 30
-    MULTILINESTRING shift and go to state 31
-    BOOL            shift and go to state 32
-    APR             shift and go to state 33
-    AC              shift and go to state 34
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    SIGNALINTS      shift and go to state 24
+    OCTAL           shift and go to state 25
+    HEXADECIMAL     shift and go to state 26
+    BINARY          shift and go to state 27
+    FLOAT           shift and go to state 28
+    STRING          shift and go to state 29
+    MULTILINESTRING shift and go to state 30
+    BOOLEAN         shift and go to state 31
+    LBRACKET        shift and go to state 32
+    LCHAVETA        shift and go to state 33
 
-    elements                       shift and go to state 40
-    value                          shift and go to state 41
+    elements                       shift and go to state 39
+    value                          shift and go to state 40
     list                           shift and go to state 21
     inlinetable                    shift and go to state 22
 
+state 33
+
+    (19) inlinetable -> LCHAVETA . vars RCHAVETA
+    (20) vars -> . vars COMMA var
+    (21) vars -> . var
+    (22) var -> . KEY EQUALS value
+
+    KEY             shift and go to state 43
+
+    vars                           shift and go to state 41
+    var                            shift and go to state 42
+
 state 34
 
-    (19) inlinetable -> AC . vars FC
-    (20) vars -> . vars VIRG var
-    (21) vars -> . var
-    (22) var -> . VAR IGUAL value
+    (14) statement -> DOTTEDKEY EQUALS value .
 
-    VAR             shift and go to state 44
+    DICT            reduce using rule 14 (statement -> DOTTEDKEY EQUALS value .)
+    OPENLIST        reduce using rule 14 (statement -> DOTTEDKEY EQUALS value .)
+    KEY             reduce using rule 14 (statement -> DOTTEDKEY EQUALS value .)
+    DOTTEDKEY       reduce using rule 14 (statement -> DOTTEDKEY EQUALS value .)
+    $end            reduce using rule 14 (statement -> DOTTEDKEY EQUALS value .)
 
-    vars                           shift and go to state 42
-    var                            shift and go to state 43
 
 state 35
 
-    (14) statement -> DOTTEDKEY IGUAL value .
+    (4) section -> DICT LISTNAME RBRACKET content .
+    (11) content -> content . statement
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
-    TAGA            reduce using rule 14 (statement -> DOTTEDKEY IGUAL value .)
-    AOTA            reduce using rule 14 (statement -> DOTTEDKEY IGUAL value .)
-    VAR             reduce using rule 14 (statement -> DOTTEDKEY IGUAL value .)
-    DOTTEDKEY       reduce using rule 14 (statement -> DOTTEDKEY IGUAL value .)
-    $end            reduce using rule 14 (statement -> DOTTEDKEY IGUAL value .)
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 4 (section -> DICT LISTNAME RBRACKET content .)
+    OPENLIST        reduce using rule 4 (section -> DICT LISTNAME RBRACKET content .)
+    $end            reduce using rule 4 (section -> DICT LISTNAME RBRACKET content .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
 
+  ! KEY             [ reduce using rule 4 (section -> DICT LISTNAME RBRACKET content .) ]
+  ! DOTTEDKEY       [ reduce using rule 4 (section -> DICT LISTNAME RBRACKET content .) ]
+
+    statement                      shift and go to state 44
 
 state 36
 
-    (4) section -> TAGA NAMETAG FPR content .
-    (11) content -> content . statement
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
-
-  ! shift/reduce conflict for VAR resolved as shift
-  ! shift/reduce conflict for DOTTEDKEY resolved as shift
-    TAGA            reduce using rule 4 (section -> TAGA NAMETAG FPR content .)
-    AOTA            reduce using rule 4 (section -> TAGA NAMETAG FPR content .)
-    $end            reduce using rule 4 (section -> TAGA NAMETAG FPR content .)
-    VAR             shift and go to state 7
-    DOTTEDKEY       shift and go to state 8
-
-  ! VAR             [ reduce using rule 4 (section -> TAGA NAMETAG FPR content .) ]
-  ! DOTTEDKEY       [ reduce using rule 4 (section -> TAGA NAMETAG FPR content .) ]
-
-    statement                      shift and go to state 45
-
-state 37
-
     (12) content -> statement .
 
-    VAR             reduce using rule 12 (content -> statement .)
+    KEY             reduce using rule 12 (content -> statement .)
     DOTTEDKEY       reduce using rule 12 (content -> statement .)
-    TAGA            reduce using rule 12 (content -> statement .)
-    AOTA            reduce using rule 12 (content -> statement .)
+    DICT            reduce using rule 12 (content -> statement .)
+    OPENLIST        reduce using rule 12 (content -> statement .)
     $end            reduce using rule 12 (content -> statement .)
 
 
-state 38
+state 37
 
-    (6) section -> TAGA SUBTAG FPR content .
+    (6) section -> DICT DICTNAME RBRACKET content .
     (11) content -> content . statement
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
 
-  ! shift/reduce conflict for VAR resolved as shift
+  ! shift/reduce conflict for KEY resolved as shift
   ! shift/reduce conflict for DOTTEDKEY resolved as shift
-    TAGA            reduce using rule 6 (section -> TAGA SUBTAG FPR content .)
-    AOTA            reduce using rule 6 (section -> TAGA SUBTAG FPR content .)
-    $end            reduce using rule 6 (section -> TAGA SUBTAG FPR content .)
-    VAR             shift and go to state 7
+    DICT            reduce using rule 6 (section -> DICT DICTNAME RBRACKET content .)
+    OPENLIST        reduce using rule 6 (section -> DICT DICTNAME RBRACKET content .)
+    $end            reduce using rule 6 (section -> DICT DICTNAME RBRACKET content .)
+    KEY             shift and go to state 7
     DOTTEDKEY       shift and go to state 8
 
-  ! VAR             [ reduce using rule 6 (section -> TAGA SUBTAG FPR content .) ]
-  ! DOTTEDKEY       [ reduce using rule 6 (section -> TAGA SUBTAG FPR content .) ]
+  ! KEY             [ reduce using rule 6 (section -> DICT DICTNAME RBRACKET content .) ]
+  ! DOTTEDKEY       [ reduce using rule 6 (section -> DICT DICTNAME RBRACKET content .) ]
 
-    statement                      shift and go to state 45
+    statement                      shift and go to state 44
+
+state 38
+
+    (9) section -> OPENLIST LISTNAME CLOSELIST content .
+    (11) content -> content . statement
+    (13) statement -> . KEY EQUALS value
+    (14) statement -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 9 (section -> OPENLIST LISTNAME CLOSELIST content .)
+    OPENLIST        reduce using rule 9 (section -> OPENLIST LISTNAME CLOSELIST content .)
+    $end            reduce using rule 9 (section -> OPENLIST LISTNAME CLOSELIST content .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 9 (section -> OPENLIST LISTNAME CLOSELIST content .) ]
+  ! DOTTEDKEY       [ reduce using rule 9 (section -> OPENLIST LISTNAME CLOSELIST content .) ]
+
+    statement                      shift and go to state 44
 
 state 39
 
-    (9) section -> AOTA NAMETAG AOTF content .
-    (11) content -> content . statement
-    (13) statement -> . VAR IGUAL value
-    (14) statement -> . DOTTEDKEY IGUAL value
+    (32) list -> LBRACKET elements . RBRACKET
+    (33) elements -> elements . COMMA value
 
-  ! shift/reduce conflict for VAR resolved as shift
-  ! shift/reduce conflict for DOTTEDKEY resolved as shift
-    TAGA            reduce using rule 9 (section -> AOTA NAMETAG AOTF content .)
-    AOTA            reduce using rule 9 (section -> AOTA NAMETAG AOTF content .)
-    $end            reduce using rule 9 (section -> AOTA NAMETAG AOTF content .)
-    VAR             shift and go to state 7
-    DOTTEDKEY       shift and go to state 8
+    RBRACKET        shift and go to state 45
+    COMMA           shift and go to state 46
 
-  ! VAR             [ reduce using rule 9 (section -> AOTA NAMETAG AOTF content .) ]
-  ! DOTTEDKEY       [ reduce using rule 9 (section -> AOTA NAMETAG AOTF content .) ]
-
-    statement                      shift and go to state 45
 
 state 40
 
-    (33) list -> APR elements . FPR
-    (34) elements -> elements . VIRG value
+    (34) elements -> value .
 
-    FPR             shift and go to state 46
-    VIRG            shift and go to state 47
+    RBRACKET        reduce using rule 34 (elements -> value .)
+    COMMA           reduce using rule 34 (elements -> value .)
 
 
 state 41
 
-    (35) elements -> value .
+    (19) inlinetable -> LCHAVETA vars . RCHAVETA
+    (20) vars -> vars . COMMA var
 
-    FPR             reduce using rule 35 (elements -> value .)
-    VIRG            reduce using rule 35 (elements -> value .)
+    RCHAVETA        shift and go to state 47
+    COMMA           shift and go to state 48
 
 
 state 42
 
-    (19) inlinetable -> AC vars . FC
-    (20) vars -> vars . VIRG var
+    (21) vars -> var .
 
-    FC              shift and go to state 48
-    VIRG            shift and go to state 49
+    RCHAVETA        reduce using rule 21 (vars -> var .)
+    COMMA           reduce using rule 21 (vars -> var .)
 
 
 state 43
 
-    (21) vars -> var .
+    (22) var -> KEY . EQUALS value
 
-    FC              reduce using rule 21 (vars -> var .)
-    VIRG            reduce using rule 21 (vars -> var .)
+    EQUALS          shift and go to state 49
 
 
 state 44
 
-    (22) var -> VAR . IGUAL value
+    (11) content -> content statement .
 
-    IGUAL           shift and go to state 50
+    KEY             reduce using rule 11 (content -> content statement .)
+    DOTTEDKEY       reduce using rule 11 (content -> content statement .)
+    DICT            reduce using rule 11 (content -> content statement .)
+    OPENLIST        reduce using rule 11 (content -> content statement .)
+    $end            reduce using rule 11 (content -> content statement .)
 
 
 state 45
 
-    (11) content -> content statement .
+    (32) list -> LBRACKET elements RBRACKET .
 
-    VAR             reduce using rule 11 (content -> content statement .)
-    DOTTEDKEY       reduce using rule 11 (content -> content statement .)
-    TAGA            reduce using rule 11 (content -> content statement .)
-    AOTA            reduce using rule 11 (content -> content statement .)
-    $end            reduce using rule 11 (content -> content statement .)
+    DICT            reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    OPENLIST        reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    KEY             reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    DOTTEDKEY       reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    $end            reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    RBRACKET        reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    COMMA           reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
+    RCHAVETA        reduce using rule 32 (list -> LBRACKET elements RBRACKET .)
 
 
 state 46
 
-    (33) list -> APR elements FPR .
+    (33) elements -> elements COMMA . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
+    (17) value -> . list
+    (18) value -> . inlinetable
+    (23) value -> . INTEGER
+    (24) value -> . SIGNALINTS
+    (25) value -> . OCTAL
+    (26) value -> . HEXADECIMAL
+    (27) value -> . BINARY
+    (28) value -> . FLOAT
+    (29) value -> . STRING
+    (30) value -> . MULTILINESTRING
+    (31) value -> . BOOLEAN
+    (32) list -> . LBRACKET elements RBRACKET
+    (19) inlinetable -> . LCHAVETA vars RCHAVETA
 
-    TAGA            reduce using rule 33 (list -> APR elements FPR .)
-    AOTA            reduce using rule 33 (list -> APR elements FPR .)
-    VAR             reduce using rule 33 (list -> APR elements FPR .)
-    DOTTEDKEY       reduce using rule 33 (list -> APR elements FPR .)
-    $end            reduce using rule 33 (list -> APR elements FPR .)
-    FPR             reduce using rule 33 (list -> APR elements FPR .)
-    VIRG            reduce using rule 33 (list -> APR elements FPR .)
-    FC              reduce using rule 33 (list -> APR elements FPR .)
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    SIGNALINTS      shift and go to state 24
+    OCTAL           shift and go to state 25
+    HEXADECIMAL     shift and go to state 26
+    BINARY          shift and go to state 27
+    FLOAT           shift and go to state 28
+    STRING          shift and go to state 29
+    MULTILINESTRING shift and go to state 30
+    BOOLEAN         shift and go to state 31
+    LBRACKET        shift and go to state 32
+    LCHAVETA        shift and go to state 33
 
+    value                          shift and go to state 50
+    list                           shift and go to state 21
+    inlinetable                    shift and go to state 22
 
 state 47
 
-    (34) elements -> elements VIRG . value
-    (15) value -> . DATA
-    (16) value -> . TIME
-    (17) value -> . list
-    (18) value -> . inlinetable
-    (23) value -> . INT
-    (24) value -> . INDIANFORMAT
-    (25) value -> . SIGNALINTS
-    (26) value -> . OCTAL
-    (27) value -> . HEXADECIMAL
-    (28) value -> . BINARY
-    (29) value -> . FLOAT
-    (30) value -> . STRING
-    (31) value -> . MULTILINESTRING
-    (32) value -> . BOOL
-    (33) list -> . APR elements FPR
-    (19) inlinetable -> . AC vars FC
+    (19) inlinetable -> LCHAVETA vars RCHAVETA .
 
-    DATA            shift and go to state 19
-    TIME            shift and go to state 20
-    INT             shift and go to state 23
-    INDIANFORMAT    shift and go to state 24
-    SIGNALINTS      shift and go to state 25
-    OCTAL           shift and go to state 26
-    HEXADECIMAL     shift and go to state 27
-    BINARY          shift and go to state 28
-    FLOAT           shift and go to state 29
-    STRING          shift and go to state 30
-    MULTILINESTRING shift and go to state 31
-    BOOL            shift and go to state 32
-    APR             shift and go to state 33
-    AC              shift and go to state 34
+    DICT            reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    OPENLIST        reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    KEY             reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    DOTTEDKEY       reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    $end            reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    RBRACKET        reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    COMMA           reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
+    RCHAVETA        reduce using rule 19 (inlinetable -> LCHAVETA vars RCHAVETA .)
 
-    value                          shift and go to state 51
-    list                           shift and go to state 21
-    inlinetable                    shift and go to state 22
 
 state 48
 
-    (19) inlinetable -> AC vars FC .
+    (20) vars -> vars COMMA . var
+    (22) var -> . KEY EQUALS value
 
-    TAGA            reduce using rule 19 (inlinetable -> AC vars FC .)
-    AOTA            reduce using rule 19 (inlinetable -> AC vars FC .)
-    VAR             reduce using rule 19 (inlinetable -> AC vars FC .)
-    DOTTEDKEY       reduce using rule 19 (inlinetable -> AC vars FC .)
-    $end            reduce using rule 19 (inlinetable -> AC vars FC .)
-    FPR             reduce using rule 19 (inlinetable -> AC vars FC .)
-    VIRG            reduce using rule 19 (inlinetable -> AC vars FC .)
-    FC              reduce using rule 19 (inlinetable -> AC vars FC .)
+    KEY             shift and go to state 43
 
+    var                            shift and go to state 51
 
 state 49
 
-    (20) vars -> vars VIRG . var
-    (22) var -> . VAR IGUAL value
-
-    VAR             shift and go to state 44
-
-    var                            shift and go to state 52
-
-state 50
-
-    (22) var -> VAR IGUAL . value
-    (15) value -> . DATA
-    (16) value -> . TIME
+    (22) var -> KEY EQUALS . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
     (17) value -> . list
     (18) value -> . inlinetable
-    (23) value -> . INT
-    (24) value -> . INDIANFORMAT
-    (25) value -> . SIGNALINTS
-    (26) value -> . OCTAL
-    (27) value -> . HEXADECIMAL
-    (28) value -> . BINARY
-    (29) value -> . FLOAT
-    (30) value -> . STRING
-    (31) value -> . MULTILINESTRING
-    (32) value -> . BOOL
-    (33) list -> . APR elements FPR
-    (19) inlinetable -> . AC vars FC
+    (23) value -> . INTEGER
+    (24) value -> . SIGNALINTS
+    (25) value -> . OCTAL
+    (26) value -> . HEXADECIMAL
+    (27) value -> . BINARY
+    (28) value -> . FLOAT
+    (29) value -> . STRING
+    (30) value -> . MULTILINESTRING
+    (31) value -> . BOOLEAN
+    (32) list -> . LBRACKET elements RBRACKET
+    (19) inlinetable -> . LCHAVETA vars RCHAVETA
 
-    DATA            shift and go to state 19
-    TIME            shift and go to state 20
-    INT             shift and go to state 23
-    INDIANFORMAT    shift and go to state 24
-    SIGNALINTS      shift and go to state 25
-    OCTAL           shift and go to state 26
-    HEXADECIMAL     shift and go to state 27
-    BINARY          shift and go to state 28
-    FLOAT           shift and go to state 29
-    STRING          shift and go to state 30
-    MULTILINESTRING shift and go to state 31
-    BOOL            shift and go to state 32
-    APR             shift and go to state 33
-    AC              shift and go to state 34
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    SIGNALINTS      shift and go to state 24
+    OCTAL           shift and go to state 25
+    HEXADECIMAL     shift and go to state 26
+    BINARY          shift and go to state 27
+    FLOAT           shift and go to state 28
+    STRING          shift and go to state 29
+    MULTILINESTRING shift and go to state 30
+    BOOLEAN         shift and go to state 31
+    LBRACKET        shift and go to state 32
+    LCHAVETA        shift and go to state 33
 
-    value                          shift and go to state 53
+    value                          shift and go to state 52
     list                           shift and go to state 21
     inlinetable                    shift and go to state 22
 
+state 50
+
+    (33) elements -> elements COMMA value .
+
+    RBRACKET        reduce using rule 33 (elements -> elements COMMA value .)
+    COMMA           reduce using rule 33 (elements -> elements COMMA value .)
+
+
 state 51
 
-    (34) elements -> elements VIRG value .
+    (20) vars -> vars COMMA var .
 
-    FPR             reduce using rule 34 (elements -> elements VIRG value .)
-    VIRG            reduce using rule 34 (elements -> elements VIRG value .)
+    RCHAVETA        reduce using rule 20 (vars -> vars COMMA var .)
+    COMMA           reduce using rule 20 (vars -> vars COMMA var .)
 
 
 state 52
 
-    (20) vars -> vars VIRG var .
+    (22) var -> KEY EQUALS value .
 
-    FC              reduce using rule 20 (vars -> vars VIRG var .)
-    VIRG            reduce using rule 20 (vars -> vars VIRG var .)
-
-
-state 53
-
-    (22) var -> VAR IGUAL value .
-
-    FC              reduce using rule 22 (var -> VAR IGUAL value .)
-    VIRG            reduce using rule 22 (var -> VAR IGUAL value .)
+    RCHAVETA        reduce using rule 22 (var -> KEY EQUALS value .)
+    COMMA           reduce using rule 22 (var -> KEY EQUALS value .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for VAR in state 15 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 15 resolved as shift
 WARNING: shift/reduce conflict for DOTTEDKEY in state 15 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 16 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 16 resolved as shift
 WARNING: shift/reduce conflict for DOTTEDKEY in state 16 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 17 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 17 resolved as shift
 WARNING: shift/reduce conflict for DOTTEDKEY in state 17 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 36 resolved as shift
-WARNING: shift/reduce conflict for DOTTEDKEY in state 36 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 38 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 35 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 35 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 37 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 37 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 38 resolved as shift
 WARNING: shift/reduce conflict for DOTTEDKEY in state 38 resolved as shift
-WARNING: shift/reduce conflict for VAR in state 39 resolved as shift
-WARNING: shift/reduce conflict for DOTTEDKEY in state 39 resolved as shift
