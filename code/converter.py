@@ -12,13 +12,13 @@ def toml_to_json(toml_file_path):
     try:
         json_filename = re.search(r"(\\|\/)([^.]*)", toml_file_path).group(2)
 
-        # se a diretoria for num sistema Windows
-        if re.search(r"(\\)", toml_file_path):
+         # se a diretoria for num sistema Windows
+        if re.search(r"(\\)", toml_file_path) != None:
             json_filename = "json_files\\" + json_filename + ".json"
 
         # se a diretoria for num sistema Linux
-        if re.search(r"(\/)", toml_file_path):
-            json_filename = "json_files\/" + json_filename + ".json"
+        if re.search(r"(\/)", toml_file_path) != None:
+            json_filename = "json_files/" + json_filename + ".json"
 
 
         json_file = open(json_filename, "w", encoding='UTF-8')
