@@ -14,8 +14,8 @@ states = (
 # ---> esta secção é relativa à identificação de tokens
 
 tokens = (
-    'DICT',            # --> quando começa um novo dicionário (antes era TAGA)
-    'LISTNAME',        # --> nome da lista de objetos json (antes era NAMETAG)
+    'DICT',            # --> quando começa um novo dicionário (Table segundo o site do Toml)
+    'LISTNAME',        # --> nome da lista de dicionários (Array of Tables segundo o site do Toml)
     'KEY',
     'INTEGER',
     'STRING',
@@ -28,33 +28,47 @@ tokens = (
     'LBRACKET',
     'RBRACKET',
     'COMMA',
-    'DICTNAME',         # --> nome do dicionário começado (antes era SUBTAG)
+    'DICTNAME',         # --> nome do dicionário começado
     'HOURS',
     'DOTTEDKEY',
     'MULTILINESTRING',
-    'SIGNALINTS',
+    'INDIANNUMBER',
+    'SIGNAL',
     'OCTAL',
     'HEXADECIMAL',
     'LCHAVETA',
     'RCHAVETA',
-    'OPENLIST',         # --> quando começa uma nova lista de objetos (antes era AOTA)
-    'CLOSELIST'         # --> quando se fecha uma lista de objetos (antes era AOTF)
+    'OPENLIST',         # --> quando começa uma nova lista de dicionários
+    'CLOSELIST'         # --> quando se fecha a lista de dicionários
 )
 
 
+# --> chaves
 t_KEY = r'[A-Za-z_\-]+'
 t_DOTTEDKEY = r'[A-Za-z_\-]+(\.[A-Za-z_\-]+)+'
+
+# --> numeros inteiros
 t_INTEGER = r'\d+'
-t_SIGNALINTS = r'[+-]\d+'
+t_INDIANNUMBER = r'\d+(_\d+)+'          # --> formato de numeros que é mencionado no site do TOML
+t_SIGNAL = r'[+-]\d+'
 t_BINARY = r'0b[01]+'
 t_OCTAL = r'0o[0-7]+'
 t_HEXADECIMAL = r'0x[0-9a-fA-F]+'
-t_STRING = r'".*?"'                     # apanha tudo que esteja dentro de aspas (incluindo as aspas)
+
+# --> string e float
+t_STRING = r'".*?"'                     # --> apanha tudo que esteja dentro de aspas (incluindo as aspas)
 t_FLOAT = r'\d+\.\d+'
+
+# --> tempo
 t_DATE = r'\d{4}\-\d{2}\-\d{2}'
 t_HOURS = r'\d{2}\:\d{2}\:\d{2}'
+
+# --> 'igual e comentario
 t_EQUALS = r'\='
 t_ignore_COMMENT = r'\#.*'              # --> comentários não são essenciais para o ficheiro json logo podem ser ignorados
+t_BOOLEAN = r'(?i)(true|false)'         # --> não quer saber se é lowercase ou uppercase
+
+# --> separadores e limitadores
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_COMMA = r'\,'
@@ -110,10 +124,6 @@ def t_newline(t):
 
 def t_MULTILINESTRING(t):
     r'"""[\n\w\s]*"""'
-    return t
-
-def t_BOOLEAN(t):
-    r'(?i)(true|false)' # não quer saber se é lowercase ou uppercase
     return t
 
 t_ignore = ' \t'

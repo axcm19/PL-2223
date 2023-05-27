@@ -1,36 +1,31 @@
-title = "TOML Example 3"
+title = "TOML Example 3 Modified"
 
-[owner]
+[[personas]]
 name = "John Doe"
-dob = 1979-05-27
+age = 30
+city = "New York"
 
-[[products]]
-name = "Produto 1"
-price = 25.99
-stock = 10
+[[personas]]
+name = "Jane Smith"
+age = 25
+city = "London"
 
-[[products]]
-name = "Produto 2"
-price = 14.50
-stock = 20
+[[books]]
+title = "Book A"
+author = "Author A"
+year = 2022
 
-[clients]
-[clients.clienteUm]
-    name = "Maria Silva"
-    age = 35
-    email = "maria.silva@example.com"
+[[books]]
+title = "Book B"
+author = "Author B"
+year = 2021
 
-[clients.clienteDois]
-    name = "João Santos"
-    age = 45
-    email = "joao.santos@example.com"
+[[cars]]
+make = "Toyota"
+model = "Camry"
+year = 2020
 
-[[featured-products]]
-id = "P001"
-name = "Produto em destaque 1"
-price = 199.99
-
-[[featured-products]]
-id = "P002"
-name = "Produto em destaque 2"
-price = 299.99
+[[cars]]
+make = "Honda"
+model = "Civic"
+year = 2019

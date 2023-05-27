@@ -9,36 +9,36 @@ from lexico import tokens
 
 def p_toml(p):
     """
-    toml : sections
+    toml : blocks
     """
     p[0] = p[1]
 
 
-def p_sections(p):
+def p_blocks(p):
     """
-    sections : sections section
-             | section
+    blocks : blocks block
+           | block
     """
     if len(p) == 2:
         p[0] = p[1]
 
     else:
-        lista = list(p[2].keys())
-        lista_temp = lista[0].split('.')
+        new_list = list(p[2].keys())
+        list_temp = new_list[0].split('.')
 
-        if len(lista_temp) > 1:
+        if len(list_temp) > 1:
             temp_dict = p[1]
 
-            for key in lista_temp[:-1]:
+            for key in list_temp[:-1]:
 
                 if key not in temp_dict:
                     temp_dict[key] = {}
                 temp_dict = temp_dict[key]
 
             if type(temp_dict) == list:
-                temp_dict.append({lista_temp[-1]: p[2][lista[0]]})
+                temp_dict.append({list_temp[-1]: p[2][new_list[0]]})
             else:
-                temp_dict[lista_temp[-1]] = p[2][lista[0]]
+                temp_dict[list_temp[-1]] = p[2][new_list[0]]
             print(p[0], "  ", p[1])
             p[0] = p[1]
         else:
@@ -52,21 +52,10 @@ def p_sections(p):
             p[0] = p[1]
 
 
-def p_section(p):
+def p_block(p):
     """
-    section : DICT LISTNAME RBRACKET content
-	        | DICT LISTNAME RBRACKET
-    """
-    if len(p) == 5:
-        p[0] = {p[2]: p[4]}
-    else:
-        p[0] = {p[2]: {}}
-
-
-def p_section_dictname(p):
-    """
-    section : DICT DICTNAME RBRACKET content
-	        | DICT DICTNAME RBRACKET
+    block : DICT LISTNAME RBRACKET content
+	      | DICT LISTNAME RBRACKET
     """
     if len(p) == 5:
         p[0] = {p[2]: p[4]}
@@ -74,17 +63,28 @@ def p_section_dictname(p):
         p[0] = {p[2]: {}}
 
 
-def p_section_statements(p):
+def p_block_dictname(p):
     """
-    section : statement
+    block : DICT DICTNAME RBRACKET content
+	      | DICT DICTNAME RBRACKET
+    """
+    if len(p) == 5:
+        p[0] = {p[2]: p[4]}
+    else:
+        p[0] = {p[2]: {}}
+
+
+def p_block_keyvaluepairs(p):
+    """
+    block : keyvaluepair
     """
     p[0] = p[1]
 
 
-def p_section_openlist_listname(p):
+def p_block_openlist_listname(p):
     """
-    section : OPENLIST LISTNAME CLOSELIST content
-            | OPENLIST LISTNAME CLOSELIST
+    block : OPENLIST LISTNAME CLOSELIST content
+          | OPENLIST LISTNAME CLOSELIST
     """
     if len(p) == 5:
         p[0] = {p[2]: [p[4]]}
@@ -95,8 +95,8 @@ def p_section_openlist_listname(p):
 
 def p_content(p):
     """
-    content : content statement
-            | statement
+    content : content keyvaluepair
+            | keyvaluepair
     """
     if len(p) == 2:
         p[0] = p[1]
@@ -105,24 +105,24 @@ def p_content(p):
         p[0] = p[1]
 
 
-def p_statement_KEY(p):
+def p_keyvaluepair_KEY(p):
     """
-    statement : KEY EQUALS value
+    keyvaluepair : KEY EQUALS value
     """
     p[0] = {p[1]: p[3]}
 
 
-def p_statement_DOTTEDKEY(p):
+def p_keyValuePair_DOTTEDKEY(p):
     """
-    statement : DOTTEDKEY EQUALS value
+    keyvaluepair : DOTTEDKEY EQUALS value
     """
-    lista = p[1].split(".")
-    dicionario = p[3]
+    list = p[1].split(".")
+    dict = p[3]
 
-    for chave in reversed(lista):
-        dicionario = {chave: dicionario}
+    for key in reversed(list):
+        dict = {key: dict}
 
-    p[0] = dicionario
+    p[0] = dict
 
 
 def p_value(p):
@@ -137,15 +137,15 @@ def p_value(p):
 
 def p_inlinetable(p):
     """
-    inlinetable : LCHAVETA vars RCHAVETA
+    inlinetable : LCHAVETA elems1 RCHAVETA
     """
     p[0] = p[2]
 
 
 def p_inlinetable_KEYS(p):
     """
-    vars : vars COMMA var
-         | var
+    elems1 : elems1 COMMA elem
+           | elem
     """
     if len(p) == 4:
         p[1].update(p[3])
@@ -157,7 +157,7 @@ def p_inlinetable_KEYS(p):
 
 def p_inlinetable_KEY(p):
     """
-    var : KEY EQUALS value
+    elem : KEY EQUALS value
     """
     p[0] = {p[1]: p[3]}
 
@@ -170,9 +170,21 @@ def p_INTEGER(p):
     """
     p[0] = int(p[1])
 
-def p_SIGNALINTS(p):
+def p_INDIANNUMBER(p):
     """
-    value : SIGNALINTS
+    value : INDIANNUMBER
+    """
+    lista  = p[1].split("_")
+    string = ""
+
+    for elem in lista:
+        string += elem
+
+    p[0] = int(string)
+
+def p_SIGNAL(p):
+    """
+    value : SIGNAL
     """
     p[0] = int(p[1])
 
@@ -231,16 +243,16 @@ def p_BOOLEAN(p):
 
 def p_list(p):
     """
-    list : LBRACKET elements RBRACKET
+    list : LBRACKET elems2 RBRACKET
     """
 
     p[0] = p[2]
 
 
-def p_elements(p):
+def p_elems2(p):
     """
-    elements : elements COMMA value
-             | value
+    elems2 : elems2 COMMA value
+           | value
     """
     if len(p) == 2:
         p[0] = [p[1]]

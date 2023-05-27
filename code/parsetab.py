@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BINARY BOOLEAN CLOSELIST COMMA COMMENT DATE DICT DICTNAME DOTTEDKEY EQUALS FLOAT HEXADECIMAL HOURS INTEGER KEY LBRACKET LCHAVETA LISTNAME MULTILINESTRING OCTAL OPENLIST RBRACKET RCHAVETA SIGNALINTS STRING\n    toml : sections\n    \n    sections : sections section\n             | section\n    \n    section : DICT LISTNAME RBRACKET content\n\t        | DICT LISTNAME RBRACKET\n    \n    section : DICT DICTNAME RBRACKET content\n\t        | DICT DICTNAME RBRACKET\n    \n    section : statement\n    \n    section : OPENLIST LISTNAME CLOSELIST content\n            | OPENLIST LISTNAME CLOSELIST\n    \n    content : content statement\n            | statement\n    \n    statement : KEY EQUALS value\n    \n    statement : DOTTEDKEY EQUALS value\n    \n    value : DATE\n          | HOURS\n          | list\n          | inlinetable\n    \n    inlinetable : LCHAVETA vars RCHAVETA\n    \n    vars : vars COMMA var\n         | var\n    \n    var : KEY EQUALS value\n    \n    value : INTEGER\n    \n    value : SIGNALINTS\n    \n    value : OCTAL\n    \n    value : HEXADECIMAL\n    \n    value : BINARY\n    \n    value : FLOAT\n    \n    value : STRING\n    \n    value : MULTILINESTRING\n    \n    value : BOOLEAN\n    \n    list : LBRACKET elements RBRACKET\n    \n    elements : elements COMMA value\n             | value\n    '
+_lr_signature = 'BINARY BOOLEAN CLOSELIST COMMA COMMENT DATE DICT DICTNAME DOTTEDKEY EQUALS FLOAT HEXADECIMAL HOURS INDIANNUMBER INTEGER KEY LBRACKET LCHAVETA LISTNAME MULTILINESTRING OCTAL OPENLIST RBRACKET RCHAVETA SIGNAL STRING\n    toml : blocks\n    \n    blocks : blocks block\n           | block\n    \n    block : DICT LISTNAME RBRACKET content\n\t      | DICT LISTNAME RBRACKET\n    \n    block : DICT DICTNAME RBRACKET content\n\t      | DICT DICTNAME RBRACKET\n    \n    block : keyvaluepair\n    \n    block : OPENLIST LISTNAME CLOSELIST content\n          | OPENLIST LISTNAME CLOSELIST\n    \n    content : content keyvaluepair\n            | keyvaluepair\n    \n    keyvaluepair : KEY EQUALS value\n    \n    keyvaluepair : DOTTEDKEY EQUALS value\n    \n    value : DATE\n          | HOURS\n          | list\n          | inlinetable\n    \n    inlinetable : LCHAVETA elems1 RCHAVETA\n    \n    elems1 : elems1 COMMA elem\n           | elem\n    \n    elem : KEY EQUALS value\n    \n    value : INTEGER\n    \n    value : INDIANNUMBER\n    \n    value : SIGNAL\n    \n    value : OCTAL\n    \n    value : HEXADECIMAL\n    \n    value : BINARY\n    \n    value : FLOAT\n    \n    value : STRING\n    \n    value : MULTILINESTRING\n    \n    value : BOOLEAN\n    \n    list : LBRACKET elems2 RBRACKET\n    \n    elems2 : elems2 COMMA value\n           | value\n    '
     
-_lr_action_items = {'DICT':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,34,35,36,37,38,44,45,47,],[4,4,-3,-8,-2,-5,-7,-10,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-14,-4,-12,-6,-9,-11,-32,-19,]),'OPENLIST':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,34,35,36,37,38,44,45,47,],[6,6,-3,-8,-2,-5,-7,-10,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-14,-4,-12,-6,-9,-11,-32,-19,]),'KEY':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,33,34,35,36,37,38,44,45,47,48,],[7,7,-3,-8,-2,7,7,7,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,43,-14,7,-12,7,7,-11,-32,-19,43,]),'DOTTEDKEY':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,34,35,36,37,38,44,45,47,],[8,8,-3,-8,-2,8,8,8,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-14,8,-12,8,8,-11,-32,-19,]),'$end':([1,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,34,35,36,37,38,44,45,47,],[0,-1,-3,-8,-2,-5,-7,-10,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-14,-4,-12,-6,-9,-11,-32,-19,]),'LISTNAME':([4,6,],[10,12,]),'DICTNAME':([4,],[11,]),'EQUALS':([7,8,43,],[13,14,49,]),'RBRACKET':([10,11,19,20,21,22,23,24,25,26,27,28,29,30,31,39,40,45,47,50,],[15,16,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,45,-34,-32,-19,-33,]),'CLOSELIST':([12,],[17,]),'DATE':([13,14,32,46,49,],[19,19,19,19,19,]),'HOURS':([13,14,32,46,49,],[20,20,20,20,20,]),'INTEGER':([13,14,32,46,49,],[23,23,23,23,23,]),'SIGNALINTS':([13,14,32,46,49,],[24,24,24,24,24,]),'OCTAL':([13,14,32,46,49,],[25,25,25,25,25,]),'HEXADECIMAL':([13,14,32,46,49,],[26,26,26,26,26,]),'BINARY':([13,14,32,46,49,],[27,27,27,27,27,]),'FLOAT':([13,14,32,46,49,],[28,28,28,28,28,]),'STRING':([13,14,32,46,49,],[29,29,29,29,29,]),'MULTILINESTRING':([13,14,32,46,49,],[30,30,30,30,30,]),'BOOLEAN':([13,14,32,46,49,],[31,31,31,31,31,]),'LBRACKET':([13,14,32,46,49,],[32,32,32,32,32,]),'LCHAVETA':([13,14,32,46,49,],[33,33,33,33,33,]),'COMMA':([19,20,21,22,23,24,25,26,27,28,29,30,31,39,40,41,42,45,47,50,51,52,],[-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,46,-34,48,-21,-32,-19,-33,-20,-22,]),'RCHAVETA':([19,20,21,22,23,24,25,26,27,28,29,30,31,41,42,45,47,51,52,],[-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,47,-21,-32,-19,-20,-22,]),}
+_lr_action_items = {'DICT':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,35,36,37,38,39,45,46,48,],[4,4,-3,-8,-2,-5,-7,-10,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-14,-4,-12,-6,-9,-11,-33,-19,]),'OPENLIST':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,35,36,37,38,39,45,46,48,],[6,6,-3,-8,-2,-5,-7,-10,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-14,-4,-12,-6,-9,-11,-33,-19,]),'KEY':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,39,45,46,48,49,],[7,7,-3,-8,-2,7,7,7,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,44,-14,7,-12,7,7,-11,-33,-19,44,]),'DOTTEDKEY':([0,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,35,36,37,38,39,45,46,48,],[8,8,-3,-8,-2,8,8,8,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-14,8,-12,8,8,-11,-33,-19,]),'$end':([1,2,3,5,9,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,35,36,37,38,39,45,46,48,],[0,-1,-3,-8,-2,-5,-7,-10,-13,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,-14,-4,-12,-6,-9,-11,-33,-19,]),'LISTNAME':([4,6,],[10,12,]),'DICTNAME':([4,],[11,]),'EQUALS':([7,8,44,],[13,14,50,]),'RBRACKET':([10,11,19,20,21,22,23,24,25,26,27,28,29,30,31,32,40,41,46,48,51,],[15,16,-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,46,-35,-33,-19,-34,]),'CLOSELIST':([12,],[17,]),'DATE':([13,14,33,47,50,],[19,19,19,19,19,]),'HOURS':([13,14,33,47,50,],[20,20,20,20,20,]),'INTEGER':([13,14,33,47,50,],[23,23,23,23,23,]),'INDIANNUMBER':([13,14,33,47,50,],[24,24,24,24,24,]),'SIGNAL':([13,14,33,47,50,],[25,25,25,25,25,]),'OCTAL':([13,14,33,47,50,],[26,26,26,26,26,]),'HEXADECIMAL':([13,14,33,47,50,],[27,27,27,27,27,]),'BINARY':([13,14,33,47,50,],[28,28,28,28,28,]),'FLOAT':([13,14,33,47,50,],[29,29,29,29,29,]),'STRING':([13,14,33,47,50,],[30,30,30,30,30,]),'MULTILINESTRING':([13,14,33,47,50,],[31,31,31,31,31,]),'BOOLEAN':([13,14,33,47,50,],[32,32,32,32,32,]),'LBRACKET':([13,14,33,47,50,],[33,33,33,33,33,]),'LCHAVETA':([13,14,33,47,50,],[34,34,34,34,34,]),'COMMA':([19,20,21,22,23,24,25,26,27,28,29,30,31,32,40,41,42,43,46,48,51,52,53,],[-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,47,-35,49,-21,-33,-19,-34,-20,-22,]),'RCHAVETA':([19,20,21,22,23,24,25,26,27,28,29,30,31,32,42,43,46,48,52,53,],[-15,-16,-17,-18,-23,-24,-25,-26,-27,-28,-29,-30,-31,-32,48,-21,-33,-19,-20,-22,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'toml':([0,],[1,]),'sections':([0,],[2,]),'section':([0,2,],[3,9,]),'statement':([0,2,15,16,17,35,37,38,],[5,5,36,36,36,44,44,44,]),'value':([13,14,32,46,49,],[18,34,40,50,52,]),'list':([13,14,32,46,49,],[21,21,21,21,21,]),'inlinetable':([13,14,32,46,49,],[22,22,22,22,22,]),'content':([15,16,17,],[35,37,38,]),'elements':([32,],[39,]),'vars':([33,],[41,]),'var':([33,48,],[42,51,]),}
+_lr_goto_items = {'toml':([0,],[1,]),'blocks':([0,],[2,]),'block':([0,2,],[3,9,]),'keyvaluepair':([0,2,15,16,17,36,38,39,],[5,5,37,37,37,45,45,45,]),'value':([13,14,33,47,50,],[18,35,41,51,53,]),'list':([13,14,33,47,50,],[21,21,21,21,21,]),'inlinetable':([13,14,33,47,50,],[22,22,22,22,22,]),'content':([15,16,17,],[36,38,39,]),'elems2':([33,],[40,]),'elems1':([34,],[42,]),'elem':([34,49,],[43,52,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,38 +27,39 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> toml","S'",1,None,None,None),
-  ('toml -> sections','toml',1,'p_toml','criaDicionario.py',12),
-  ('sections -> sections section','sections',2,'p_sections','criaDicionario.py',19),
-  ('sections -> section','sections',1,'p_sections','criaDicionario.py',20),
-  ('section -> DICT LISTNAME RBRACKET content','section',4,'p_section','criaDicionario.py',57),
-  ('section -> DICT LISTNAME RBRACKET','section',3,'p_section','criaDicionario.py',58),
-  ('section -> DICT DICTNAME RBRACKET content','section',4,'p_section_dictname','criaDicionario.py',68),
-  ('section -> DICT DICTNAME RBRACKET','section',3,'p_section_dictname','criaDicionario.py',69),
-  ('section -> statement','section',1,'p_section_statements','criaDicionario.py',79),
-  ('section -> OPENLIST LISTNAME CLOSELIST content','section',4,'p_section_openlist_listname','criaDicionario.py',86),
-  ('section -> OPENLIST LISTNAME CLOSELIST','section',3,'p_section_openlist_listname','criaDicionario.py',87),
-  ('content -> content statement','content',2,'p_content','criaDicionario.py',98),
-  ('content -> statement','content',1,'p_content','criaDicionario.py',99),
-  ('statement -> KEY EQUALS value','statement',3,'p_statement_KEY','criaDicionario.py',110),
-  ('statement -> DOTTEDKEY EQUALS value','statement',3,'p_statement_DOTTEDKEY','criaDicionario.py',117),
+  ('toml -> blocks','toml',1,'p_toml','criaDicionario.py',12),
+  ('blocks -> blocks block','blocks',2,'p_blocks','criaDicionario.py',19),
+  ('blocks -> block','blocks',1,'p_blocks','criaDicionario.py',20),
+  ('block -> DICT LISTNAME RBRACKET content','block',4,'p_block','criaDicionario.py',57),
+  ('block -> DICT LISTNAME RBRACKET','block',3,'p_block','criaDicionario.py',58),
+  ('block -> DICT DICTNAME RBRACKET content','block',4,'p_block_dictname','criaDicionario.py',68),
+  ('block -> DICT DICTNAME RBRACKET','block',3,'p_block_dictname','criaDicionario.py',69),
+  ('block -> keyvaluepair','block',1,'p_block_keyvaluepairs','criaDicionario.py',79),
+  ('block -> OPENLIST LISTNAME CLOSELIST content','block',4,'p_block_openlist_listname','criaDicionario.py',86),
+  ('block -> OPENLIST LISTNAME CLOSELIST','block',3,'p_block_openlist_listname','criaDicionario.py',87),
+  ('content -> content keyvaluepair','content',2,'p_content','criaDicionario.py',98),
+  ('content -> keyvaluepair','content',1,'p_content','criaDicionario.py',99),
+  ('keyvaluepair -> KEY EQUALS value','keyvaluepair',3,'p_keyvaluepair_KEY','criaDicionario.py',110),
+  ('keyvaluepair -> DOTTEDKEY EQUALS value','keyvaluepair',3,'p_keyValuePair_DOTTEDKEY','criaDicionario.py',117),
   ('value -> DATE','value',1,'p_value','criaDicionario.py',130),
   ('value -> HOURS','value',1,'p_value','criaDicionario.py',131),
   ('value -> list','value',1,'p_value','criaDicionario.py',132),
   ('value -> inlinetable','value',1,'p_value','criaDicionario.py',133),
-  ('inlinetable -> LCHAVETA vars RCHAVETA','inlinetable',3,'p_inlinetable','criaDicionario.py',140),
-  ('vars -> vars COMMA var','vars',3,'p_inlinetable_KEYS','criaDicionario.py',147),
-  ('vars -> var','vars',1,'p_inlinetable_KEYS','criaDicionario.py',148),
-  ('var -> KEY EQUALS value','var',3,'p_inlinetable_KEY','criaDicionario.py',160),
+  ('inlinetable -> LCHAVETA elems1 RCHAVETA','inlinetable',3,'p_inlinetable','criaDicionario.py',140),
+  ('elems1 -> elems1 COMMA elem','elems1',3,'p_inlinetable_KEYS','criaDicionario.py',147),
+  ('elems1 -> elem','elems1',1,'p_inlinetable_KEYS','criaDicionario.py',148),
+  ('elem -> KEY EQUALS value','elem',3,'p_inlinetable_KEY','criaDicionario.py',160),
   ('value -> INTEGER','value',1,'p_INTEGER','criaDicionario.py',169),
-  ('value -> SIGNALINTS','value',1,'p_SIGNALINTS','criaDicionario.py',175),
-  ('value -> OCTAL','value',1,'p_OCTAL','criaDicionario.py',182),
-  ('value -> HEXADECIMAL','value',1,'p_HEXADECIMAL','criaDicionario.py',189),
-  ('value -> BINARY','value',1,'p_BINARY','criaDicionario.py',196),
-  ('value -> FLOAT','value',1,'p_FLOAT','criaDicionario.py',203),
-  ('value -> STRING','value',1,'p_STRING','criaDicionario.py',210),
-  ('value -> MULTILINESTRING','value',1,'p_MULTILINESTRING','criaDicionario.py',217),
-  ('value -> BOOLEAN','value',1,'p_BOOLEAN','criaDicionario.py',225),
-  ('list -> LBRACKET elements RBRACKET','list',3,'p_list','criaDicionario.py',234),
-  ('elements -> elements COMMA value','elements',3,'p_elements','criaDicionario.py',242),
-  ('elements -> value','elements',1,'p_elements','criaDicionario.py',243),
+  ('value -> INDIANNUMBER','value',1,'p_INDIANNUMBER','criaDicionario.py',175),
+  ('value -> SIGNAL','value',1,'p_SIGNAL','criaDicionario.py',187),
+  ('value -> OCTAL','value',1,'p_OCTAL','criaDicionario.py',194),
+  ('value -> HEXADECIMAL','value',1,'p_HEXADECIMAL','criaDicionario.py',201),
+  ('value -> BINARY','value',1,'p_BINARY','criaDicionario.py',208),
+  ('value -> FLOAT','value',1,'p_FLOAT','criaDicionario.py',215),
+  ('value -> STRING','value',1,'p_STRING','criaDicionario.py',222),
+  ('value -> MULTILINESTRING','value',1,'p_MULTILINESTRING','criaDicionario.py',229),
+  ('value -> BOOLEAN','value',1,'p_BOOLEAN','criaDicionario.py',237),
+  ('list -> LBRACKET elems2 RBRACKET','list',3,'p_list','criaDicionario.py',246),
+  ('elems2 -> elems2 COMMA value','elems2',3,'p_elems2','criaDicionario.py',254),
+  ('elems2 -> value','elems2',1,'p_elems2','criaDicionario.py',255),
 ]
