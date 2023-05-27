@@ -1,0 +1,61 @@
+
+    toml : blocks
+    
+    blocks : blocks block
+           | block
+
+    block : DICT LISTNAME RBRACKET content
+	  | DICT LISTNAME RBRACKET
+
+    block : DICT DICTNAME RBRACKET content
+	  | DICT DICTNAME RBRACKET
+   
+    block : keyvaluepair
+ 
+    block : OPENLIST LISTNAME CLOSELIST content
+          | OPENLIST LISTNAME CLOSELIST
+    
+    content : content keyvaluepair
+            | keyvaluepair
+
+    keyvaluepair : KEY EQUALS value
+
+    keyvaluepair : DOTTEDKEY EQUALS value
+    
+    value : DATE
+          | HOURS
+          | list
+          | inlinetable
+   
+    inlinetable : LCHAVETA elems1 RCHAVETA
+    
+    elems1 : elems1 COMMA elem
+           | elem
+    
+    elem : KEY EQUALS value
+
+    value : INTEGER
+   
+    value : INDIANNUMBER
+
+    value : SIGNAL
+   
+    value : OCTAL
+    
+    value : HEXADECIMAL
+    
+    value : BINARY
+    
+    value : FLOAT
+    
+    value : STRING
+    
+    value : MULTILINESTRING
+    
+    value : BOOLEAN
+    
+    list : LBRACKET elems2 RBRACKET
+    
+    elems2 : elems2 COMMA value
+           | value
+    

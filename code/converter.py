@@ -23,13 +23,12 @@ def toml_to_json(toml_file_path):
 
         json_file = open(json_filename, "w", encoding='UTF-8')
 
-        # criar um dicionário que vai ser gerado com os tokens obtidos do lex
-        dict = {}
-
         print(f"\n")
         # faz a analise lexica e imprime os tokes no terminal
         lexico.analisar_ficheiro_toml(toml_file_path)
         print("\n")
+
+        # criar um dicionário aninhado (porque contem outros dicionários dentro) que vai ser gerado com o parse YACC
         dict = criaDicionario.cria_dict(toml_file_path)
 
         if len(dict) > 0:
