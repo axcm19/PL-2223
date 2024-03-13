@@ -1,2 +1,2 @@
-# PL2023
-TPC's e TP de Processamento de Linguagens
+# Processamento de Linguagens 2022/2023
+Repositório com TPC's e TP
