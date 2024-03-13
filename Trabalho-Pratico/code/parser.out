@@ -1,0 +1,931 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENT
+
+Grammar
+
+Rule 0     S' -> toml
+Rule 1     toml -> blocks
+Rule 2     blocks -> blocks block
+Rule 3     blocks -> block
+Rule 4     block -> DICT LISTNAME RBRACKET content
+Rule 5     block -> DICT LISTNAME RBRACKET
+Rule 6     block -> DICT DICTNAME RBRACKET content
+Rule 7     block -> DICT DICTNAME RBRACKET
+Rule 8     block -> keyvaluepair
+Rule 9     block -> OPENLIST LISTNAME CLOSELIST content
+Rule 10    block -> OPENLIST LISTNAME CLOSELIST
+Rule 11    content -> content keyvaluepair
+Rule 12    content -> keyvaluepair
+Rule 13    keyvaluepair -> KEY EQUALS value
+Rule 14    keyvaluepair -> DOTTEDKEY EQUALS value
+Rule 15    value -> DATE
+Rule 16    value -> HOURS
+Rule 17    value -> list
+Rule 18    value -> inlinetable
+Rule 19    inlinetable -> LCHAVETA elems1 RCHAVETA
+Rule 20    elems1 -> elems1 COMMA elem
+Rule 21    elems1 -> elem
+Rule 22    elem -> KEY EQUALS value
+Rule 23    value -> INTEGER
+Rule 24    value -> INDIANNUMBER
+Rule 25    value -> SIGNAL
+Rule 26    value -> OCTAL
+Rule 27    value -> HEXADECIMAL
+Rule 28    value -> BINARY
+Rule 29    value -> FLOAT
+Rule 30    value -> STRING
+Rule 31    value -> MULTILINESTRING
+Rule 32    value -> BOOLEAN
+Rule 33    list -> LBRACKET elems2 RBRACKET
+Rule 34    elems2 -> elems2 COMMA value
+Rule 35    elems2 -> value
+
+Terminals, with rules where they appear
+
+BINARY               : 28
+BOOLEAN              : 32
+CLOSELIST            : 9 10
+COMMA                : 20 34
+COMMENT              : 
+DATE                 : 15
+DICT                 : 4 5 6 7
+DICTNAME             : 6 7
+DOTTEDKEY            : 14
+EQUALS               : 13 14 22
+FLOAT                : 29
+HEXADECIMAL          : 27
+HOURS                : 16
+INDIANNUMBER         : 24
+INTEGER              : 23
+KEY                  : 13 22
+LBRACKET             : 33
+LCHAVETA             : 19
+LISTNAME             : 4 5 9 10
+MULTILINESTRING      : 31
+OCTAL                : 26
+OPENLIST             : 9 10
+RBRACKET             : 4 5 6 7 33
+RCHAVETA             : 19
+SIGNAL               : 25
+STRING               : 30
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 2 3
+blocks               : 1 2
+content              : 4 6 9 11
+elem                 : 20 21
+elems1               : 19 20
+elems2               : 33 34
+inlinetable          : 18
+keyvaluepair         : 8 11 12
+list                 : 17
+toml                 : 0
+value                : 13 14 22 34 35
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . toml
+    (1) toml -> . blocks
+    (2) blocks -> . blocks block
+    (3) blocks -> . block
+    (4) block -> . DICT LISTNAME RBRACKET content
+    (5) block -> . DICT LISTNAME RBRACKET
+    (6) block -> . DICT DICTNAME RBRACKET content
+    (7) block -> . DICT DICTNAME RBRACKET
+    (8) block -> . keyvaluepair
+    (9) block -> . OPENLIST LISTNAME CLOSELIST content
+    (10) block -> . OPENLIST LISTNAME CLOSELIST
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+    DICT            shift and go to state 4
+    OPENLIST        shift and go to state 6
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+    toml                           shift and go to state 1
+    blocks                         shift and go to state 2
+    block                          shift and go to state 3
+    keyvaluepair                   shift and go to state 5
+
+state 1
+
+    (0) S' -> toml .
+
+
+
+state 2
+
+    (1) toml -> blocks .
+    (2) blocks -> blocks . block
+    (4) block -> . DICT LISTNAME RBRACKET content
+    (5) block -> . DICT LISTNAME RBRACKET
+    (6) block -> . DICT DICTNAME RBRACKET content
+    (7) block -> . DICT DICTNAME RBRACKET
+    (8) block -> . keyvaluepair
+    (9) block -> . OPENLIST LISTNAME CLOSELIST content
+    (10) block -> . OPENLIST LISTNAME CLOSELIST
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+    $end            reduce using rule 1 (toml -> blocks .)
+    DICT            shift and go to state 4
+    OPENLIST        shift and go to state 6
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+    block                          shift and go to state 9
+    keyvaluepair                   shift and go to state 5
+
+state 3
+
+    (3) blocks -> block .
+
+    DICT            reduce using rule 3 (blocks -> block .)
+    OPENLIST        reduce using rule 3 (blocks -> block .)
+    KEY             reduce using rule 3 (blocks -> block .)
+    DOTTEDKEY       reduce using rule 3 (blocks -> block .)
+    $end            reduce using rule 3 (blocks -> block .)
+
+
+state 4
+
+    (4) block -> DICT . LISTNAME RBRACKET content
+    (5) block -> DICT . LISTNAME RBRACKET
+    (6) block -> DICT . DICTNAME RBRACKET content
+    (7) block -> DICT . DICTNAME RBRACKET
+
+    LISTNAME        shift and go to state 10
+    DICTNAME        shift and go to state 11
+
+
+state 5
+
+    (8) block -> keyvaluepair .
+
+    DICT            reduce using rule 8 (block -> keyvaluepair .)
+    OPENLIST        reduce using rule 8 (block -> keyvaluepair .)
+    KEY             reduce using rule 8 (block -> keyvaluepair .)
+    DOTTEDKEY       reduce using rule 8 (block -> keyvaluepair .)
+    $end            reduce using rule 8 (block -> keyvaluepair .)
+
+
+state 6
+
+    (9) block -> OPENLIST . LISTNAME CLOSELIST content
+    (10) block -> OPENLIST . LISTNAME CLOSELIST
+
+    LISTNAME        shift and go to state 12
+
+
+state 7
+
+    (13) keyvaluepair -> KEY . EQUALS value
+
+    EQUALS          shift and go to state 13
+
+
+state 8
+
+    (14) keyvaluepair -> DOTTEDKEY . EQUALS value
+
+    EQUALS          shift and go to state 14
+
+
+state 9
+
+    (2) blocks -> blocks block .
+
+    DICT            reduce using rule 2 (blocks -> blocks block .)
+    OPENLIST        reduce using rule 2 (blocks -> blocks block .)
+    KEY             reduce using rule 2 (blocks -> blocks block .)
+    DOTTEDKEY       reduce using rule 2 (blocks -> blocks block .)
+    $end            reduce using rule 2 (blocks -> blocks block .)
+
+
+state 10
+
+    (4) block -> DICT LISTNAME . RBRACKET content
+    (5) block -> DICT LISTNAME . RBRACKET
+
+    RBRACKET        shift and go to state 15
+
+
+state 11
+
+    (6) block -> DICT DICTNAME . RBRACKET content
+    (7) block -> DICT DICTNAME . RBRACKET
+
+    RBRACKET        shift and go to state 16
+
+
+state 12
+
+    (9) block -> OPENLIST LISTNAME . CLOSELIST content
+    (10) block -> OPENLIST LISTNAME . CLOSELIST
+
+    CLOSELIST       shift and go to state 17
+
+
+state 13
+
+    (13) keyvaluepair -> KEY EQUALS . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
+    (17) value -> . list
+    (18) value -> . inlinetable
+    (23) value -> . INTEGER
+    (24) value -> . INDIANNUMBER
+    (25) value -> . SIGNAL
+    (26) value -> . OCTAL
+    (27) value -> . HEXADECIMAL
+    (28) value -> . BINARY
+    (29) value -> . FLOAT
+    (30) value -> . STRING
+    (31) value -> . MULTILINESTRING
+    (32) value -> . BOOLEAN
+    (33) list -> . LBRACKET elems2 RBRACKET
+    (19) inlinetable -> . LCHAVETA elems1 RCHAVETA
+
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    INDIANNUMBER    shift and go to state 24
+    SIGNAL          shift and go to state 25
+    OCTAL           shift and go to state 26
+    HEXADECIMAL     shift and go to state 27
+    BINARY          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    MULTILINESTRING shift and go to state 31
+    BOOLEAN         shift and go to state 32
+    LBRACKET        shift and go to state 33
+    LCHAVETA        shift and go to state 34
+
+    value                          shift and go to state 18
+    list                           shift and go to state 21
+    inlinetable                    shift and go to state 22
+
+state 14
+
+    (14) keyvaluepair -> DOTTEDKEY EQUALS . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
+    (17) value -> . list
+    (18) value -> . inlinetable
+    (23) value -> . INTEGER
+    (24) value -> . INDIANNUMBER
+    (25) value -> . SIGNAL
+    (26) value -> . OCTAL
+    (27) value -> . HEXADECIMAL
+    (28) value -> . BINARY
+    (29) value -> . FLOAT
+    (30) value -> . STRING
+    (31) value -> . MULTILINESTRING
+    (32) value -> . BOOLEAN
+    (33) list -> . LBRACKET elems2 RBRACKET
+    (19) inlinetable -> . LCHAVETA elems1 RCHAVETA
+
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    INDIANNUMBER    shift and go to state 24
+    SIGNAL          shift and go to state 25
+    OCTAL           shift and go to state 26
+    HEXADECIMAL     shift and go to state 27
+    BINARY          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    MULTILINESTRING shift and go to state 31
+    BOOLEAN         shift and go to state 32
+    LBRACKET        shift and go to state 33
+    LCHAVETA        shift and go to state 34
+
+    value                          shift and go to state 35
+    list                           shift and go to state 21
+    inlinetable                    shift and go to state 22
+
+state 15
+
+    (4) block -> DICT LISTNAME RBRACKET . content
+    (5) block -> DICT LISTNAME RBRACKET .
+    (11) content -> . content keyvaluepair
+    (12) content -> . keyvaluepair
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 5 (block -> DICT LISTNAME RBRACKET .)
+    OPENLIST        reduce using rule 5 (block -> DICT LISTNAME RBRACKET .)
+    $end            reduce using rule 5 (block -> DICT LISTNAME RBRACKET .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 5 (block -> DICT LISTNAME RBRACKET .) ]
+  ! DOTTEDKEY       [ reduce using rule 5 (block -> DICT LISTNAME RBRACKET .) ]
+
+    content                        shift and go to state 36
+    keyvaluepair                   shift and go to state 37
+
+state 16
+
+    (6) block -> DICT DICTNAME RBRACKET . content
+    (7) block -> DICT DICTNAME RBRACKET .
+    (11) content -> . content keyvaluepair
+    (12) content -> . keyvaluepair
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 7 (block -> DICT DICTNAME RBRACKET .)
+    OPENLIST        reduce using rule 7 (block -> DICT DICTNAME RBRACKET .)
+    $end            reduce using rule 7 (block -> DICT DICTNAME RBRACKET .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 7 (block -> DICT DICTNAME RBRACKET .) ]
+  ! DOTTEDKEY       [ reduce using rule 7 (block -> DICT DICTNAME RBRACKET .) ]
+
+    content                        shift and go to state 38
+    keyvaluepair                   shift and go to state 37
+
+state 17
+
+    (9) block -> OPENLIST LISTNAME CLOSELIST . content
+    (10) block -> OPENLIST LISTNAME CLOSELIST .
+    (11) content -> . content keyvaluepair
+    (12) content -> . keyvaluepair
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 10 (block -> OPENLIST LISTNAME CLOSELIST .)
+    OPENLIST        reduce using rule 10 (block -> OPENLIST LISTNAME CLOSELIST .)
+    $end            reduce using rule 10 (block -> OPENLIST LISTNAME CLOSELIST .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 10 (block -> OPENLIST LISTNAME CLOSELIST .) ]
+  ! DOTTEDKEY       [ reduce using rule 10 (block -> OPENLIST LISTNAME CLOSELIST .) ]
+
+    content                        shift and go to state 39
+    keyvaluepair                   shift and go to state 37
+
+state 18
+
+    (13) keyvaluepair -> KEY EQUALS value .
+
+    DICT            reduce using rule 13 (keyvaluepair -> KEY EQUALS value .)
+    OPENLIST        reduce using rule 13 (keyvaluepair -> KEY EQUALS value .)
+    KEY             reduce using rule 13 (keyvaluepair -> KEY EQUALS value .)
+    DOTTEDKEY       reduce using rule 13 (keyvaluepair -> KEY EQUALS value .)
+    $end            reduce using rule 13 (keyvaluepair -> KEY EQUALS value .)
+
+
+state 19
+
+    (15) value -> DATE .
+
+    DICT            reduce using rule 15 (value -> DATE .)
+    OPENLIST        reduce using rule 15 (value -> DATE .)
+    KEY             reduce using rule 15 (value -> DATE .)
+    DOTTEDKEY       reduce using rule 15 (value -> DATE .)
+    $end            reduce using rule 15 (value -> DATE .)
+    RBRACKET        reduce using rule 15 (value -> DATE .)
+    COMMA           reduce using rule 15 (value -> DATE .)
+    RCHAVETA        reduce using rule 15 (value -> DATE .)
+
+
+state 20
+
+    (16) value -> HOURS .
+
+    DICT            reduce using rule 16 (value -> HOURS .)
+    OPENLIST        reduce using rule 16 (value -> HOURS .)
+    KEY             reduce using rule 16 (value -> HOURS .)
+    DOTTEDKEY       reduce using rule 16 (value -> HOURS .)
+    $end            reduce using rule 16 (value -> HOURS .)
+    RBRACKET        reduce using rule 16 (value -> HOURS .)
+    COMMA           reduce using rule 16 (value -> HOURS .)
+    RCHAVETA        reduce using rule 16 (value -> HOURS .)
+
+
+state 21
+
+    (17) value -> list .
+
+    DICT            reduce using rule 17 (value -> list .)
+    OPENLIST        reduce using rule 17 (value -> list .)
+    KEY             reduce using rule 17 (value -> list .)
+    DOTTEDKEY       reduce using rule 17 (value -> list .)
+    $end            reduce using rule 17 (value -> list .)
+    RBRACKET        reduce using rule 17 (value -> list .)
+    COMMA           reduce using rule 17 (value -> list .)
+    RCHAVETA        reduce using rule 17 (value -> list .)
+
+
+state 22
+
+    (18) value -> inlinetable .
+
+    DICT            reduce using rule 18 (value -> inlinetable .)
+    OPENLIST        reduce using rule 18 (value -> inlinetable .)
+    KEY             reduce using rule 18 (value -> inlinetable .)
+    DOTTEDKEY       reduce using rule 18 (value -> inlinetable .)
+    $end            reduce using rule 18 (value -> inlinetable .)
+    RBRACKET        reduce using rule 18 (value -> inlinetable .)
+    COMMA           reduce using rule 18 (value -> inlinetable .)
+    RCHAVETA        reduce using rule 18 (value -> inlinetable .)
+
+
+state 23
+
+    (23) value -> INTEGER .
+
+    DICT            reduce using rule 23 (value -> INTEGER .)
+    OPENLIST        reduce using rule 23 (value -> INTEGER .)
+    KEY             reduce using rule 23 (value -> INTEGER .)
+    DOTTEDKEY       reduce using rule 23 (value -> INTEGER .)
+    $end            reduce using rule 23 (value -> INTEGER .)
+    RBRACKET        reduce using rule 23 (value -> INTEGER .)
+    COMMA           reduce using rule 23 (value -> INTEGER .)
+    RCHAVETA        reduce using rule 23 (value -> INTEGER .)
+
+
+state 24
+
+    (24) value -> INDIANNUMBER .
+
+    DICT            reduce using rule 24 (value -> INDIANNUMBER .)
+    OPENLIST        reduce using rule 24 (value -> INDIANNUMBER .)
+    KEY             reduce using rule 24 (value -> INDIANNUMBER .)
+    DOTTEDKEY       reduce using rule 24 (value -> INDIANNUMBER .)
+    $end            reduce using rule 24 (value -> INDIANNUMBER .)
+    RBRACKET        reduce using rule 24 (value -> INDIANNUMBER .)
+    COMMA           reduce using rule 24 (value -> INDIANNUMBER .)
+    RCHAVETA        reduce using rule 24 (value -> INDIANNUMBER .)
+
+
+state 25
+
+    (25) value -> SIGNAL .
+
+    DICT            reduce using rule 25 (value -> SIGNAL .)
+    OPENLIST        reduce using rule 25 (value -> SIGNAL .)
+    KEY             reduce using rule 25 (value -> SIGNAL .)
+    DOTTEDKEY       reduce using rule 25 (value -> SIGNAL .)
+    $end            reduce using rule 25 (value -> SIGNAL .)
+    RBRACKET        reduce using rule 25 (value -> SIGNAL .)
+    COMMA           reduce using rule 25 (value -> SIGNAL .)
+    RCHAVETA        reduce using rule 25 (value -> SIGNAL .)
+
+
+state 26
+
+    (26) value -> OCTAL .
+
+    DICT            reduce using rule 26 (value -> OCTAL .)
+    OPENLIST        reduce using rule 26 (value -> OCTAL .)
+    KEY             reduce using rule 26 (value -> OCTAL .)
+    DOTTEDKEY       reduce using rule 26 (value -> OCTAL .)
+    $end            reduce using rule 26 (value -> OCTAL .)
+    RBRACKET        reduce using rule 26 (value -> OCTAL .)
+    COMMA           reduce using rule 26 (value -> OCTAL .)
+    RCHAVETA        reduce using rule 26 (value -> OCTAL .)
+
+
+state 27
+
+    (27) value -> HEXADECIMAL .
+
+    DICT            reduce using rule 27 (value -> HEXADECIMAL .)
+    OPENLIST        reduce using rule 27 (value -> HEXADECIMAL .)
+    KEY             reduce using rule 27 (value -> HEXADECIMAL .)
+    DOTTEDKEY       reduce using rule 27 (value -> HEXADECIMAL .)
+    $end            reduce using rule 27 (value -> HEXADECIMAL .)
+    RBRACKET        reduce using rule 27 (value -> HEXADECIMAL .)
+    COMMA           reduce using rule 27 (value -> HEXADECIMAL .)
+    RCHAVETA        reduce using rule 27 (value -> HEXADECIMAL .)
+
+
+state 28
+
+    (28) value -> BINARY .
+
+    DICT            reduce using rule 28 (value -> BINARY .)
+    OPENLIST        reduce using rule 28 (value -> BINARY .)
+    KEY             reduce using rule 28 (value -> BINARY .)
+    DOTTEDKEY       reduce using rule 28 (value -> BINARY .)
+    $end            reduce using rule 28 (value -> BINARY .)
+    RBRACKET        reduce using rule 28 (value -> BINARY .)
+    COMMA           reduce using rule 28 (value -> BINARY .)
+    RCHAVETA        reduce using rule 28 (value -> BINARY .)
+
+
+state 29
+
+    (29) value -> FLOAT .
+
+    DICT            reduce using rule 29 (value -> FLOAT .)
+    OPENLIST        reduce using rule 29 (value -> FLOAT .)
+    KEY             reduce using rule 29 (value -> FLOAT .)
+    DOTTEDKEY       reduce using rule 29 (value -> FLOAT .)
+    $end            reduce using rule 29 (value -> FLOAT .)
+    RBRACKET        reduce using rule 29 (value -> FLOAT .)
+    COMMA           reduce using rule 29 (value -> FLOAT .)
+    RCHAVETA        reduce using rule 29 (value -> FLOAT .)
+
+
+state 30
+
+    (30) value -> STRING .
+
+    DICT            reduce using rule 30 (value -> STRING .)
+    OPENLIST        reduce using rule 30 (value -> STRING .)
+    KEY             reduce using rule 30 (value -> STRING .)
+    DOTTEDKEY       reduce using rule 30 (value -> STRING .)
+    $end            reduce using rule 30 (value -> STRING .)
+    RBRACKET        reduce using rule 30 (value -> STRING .)
+    COMMA           reduce using rule 30 (value -> STRING .)
+    RCHAVETA        reduce using rule 30 (value -> STRING .)
+
+
+state 31
+
+    (31) value -> MULTILINESTRING .
+
+    DICT            reduce using rule 31 (value -> MULTILINESTRING .)
+    OPENLIST        reduce using rule 31 (value -> MULTILINESTRING .)
+    KEY             reduce using rule 31 (value -> MULTILINESTRING .)
+    DOTTEDKEY       reduce using rule 31 (value -> MULTILINESTRING .)
+    $end            reduce using rule 31 (value -> MULTILINESTRING .)
+    RBRACKET        reduce using rule 31 (value -> MULTILINESTRING .)
+    COMMA           reduce using rule 31 (value -> MULTILINESTRING .)
+    RCHAVETA        reduce using rule 31 (value -> MULTILINESTRING .)
+
+
+state 32
+
+    (32) value -> BOOLEAN .
+
+    DICT            reduce using rule 32 (value -> BOOLEAN .)
+    OPENLIST        reduce using rule 32 (value -> BOOLEAN .)
+    KEY             reduce using rule 32 (value -> BOOLEAN .)
+    DOTTEDKEY       reduce using rule 32 (value -> BOOLEAN .)
+    $end            reduce using rule 32 (value -> BOOLEAN .)
+    RBRACKET        reduce using rule 32 (value -> BOOLEAN .)
+    COMMA           reduce using rule 32 (value -> BOOLEAN .)
+    RCHAVETA        reduce using rule 32 (value -> BOOLEAN .)
+
+
+state 33
+
+    (33) list -> LBRACKET . elems2 RBRACKET
+    (34) elems2 -> . elems2 COMMA value
+    (35) elems2 -> . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
+    (17) value -> . list
+    (18) value -> . inlinetable
+    (23) value -> . INTEGER
+    (24) value -> . INDIANNUMBER
+    (25) value -> . SIGNAL
+    (26) value -> . OCTAL
+    (27) value -> . HEXADECIMAL
+    (28) value -> . BINARY
+    (29) value -> . FLOAT
+    (30) value -> . STRING
+    (31) value -> . MULTILINESTRING
+    (32) value -> . BOOLEAN
+    (33) list -> . LBRACKET elems2 RBRACKET
+    (19) inlinetable -> . LCHAVETA elems1 RCHAVETA
+
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    INDIANNUMBER    shift and go to state 24
+    SIGNAL          shift and go to state 25
+    OCTAL           shift and go to state 26
+    HEXADECIMAL     shift and go to state 27
+    BINARY          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    MULTILINESTRING shift and go to state 31
+    BOOLEAN         shift and go to state 32
+    LBRACKET        shift and go to state 33
+    LCHAVETA        shift and go to state 34
+
+    elems2                         shift and go to state 40
+    value                          shift and go to state 41
+    list                           shift and go to state 21
+    inlinetable                    shift and go to state 22
+
+state 34
+
+    (19) inlinetable -> LCHAVETA . elems1 RCHAVETA
+    (20) elems1 -> . elems1 COMMA elem
+    (21) elems1 -> . elem
+    (22) elem -> . KEY EQUALS value
+
+    KEY             shift and go to state 44
+
+    elems1                         shift and go to state 42
+    elem                           shift and go to state 43
+
+state 35
+
+    (14) keyvaluepair -> DOTTEDKEY EQUALS value .
+
+    DICT            reduce using rule 14 (keyvaluepair -> DOTTEDKEY EQUALS value .)
+    OPENLIST        reduce using rule 14 (keyvaluepair -> DOTTEDKEY EQUALS value .)
+    KEY             reduce using rule 14 (keyvaluepair -> DOTTEDKEY EQUALS value .)
+    DOTTEDKEY       reduce using rule 14 (keyvaluepair -> DOTTEDKEY EQUALS value .)
+    $end            reduce using rule 14 (keyvaluepair -> DOTTEDKEY EQUALS value .)
+
+
+state 36
+
+    (4) block -> DICT LISTNAME RBRACKET content .
+    (11) content -> content . keyvaluepair
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 4 (block -> DICT LISTNAME RBRACKET content .)
+    OPENLIST        reduce using rule 4 (block -> DICT LISTNAME RBRACKET content .)
+    $end            reduce using rule 4 (block -> DICT LISTNAME RBRACKET content .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 4 (block -> DICT LISTNAME RBRACKET content .) ]
+  ! DOTTEDKEY       [ reduce using rule 4 (block -> DICT LISTNAME RBRACKET content .) ]
+
+    keyvaluepair                   shift and go to state 45
+
+state 37
+
+    (12) content -> keyvaluepair .
+
+    KEY             reduce using rule 12 (content -> keyvaluepair .)
+    DOTTEDKEY       reduce using rule 12 (content -> keyvaluepair .)
+    DICT            reduce using rule 12 (content -> keyvaluepair .)
+    OPENLIST        reduce using rule 12 (content -> keyvaluepair .)
+    $end            reduce using rule 12 (content -> keyvaluepair .)
+
+
+state 38
+
+    (6) block -> DICT DICTNAME RBRACKET content .
+    (11) content -> content . keyvaluepair
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 6 (block -> DICT DICTNAME RBRACKET content .)
+    OPENLIST        reduce using rule 6 (block -> DICT DICTNAME RBRACKET content .)
+    $end            reduce using rule 6 (block -> DICT DICTNAME RBRACKET content .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 6 (block -> DICT DICTNAME RBRACKET content .) ]
+  ! DOTTEDKEY       [ reduce using rule 6 (block -> DICT DICTNAME RBRACKET content .) ]
+
+    keyvaluepair                   shift and go to state 45
+
+state 39
+
+    (9) block -> OPENLIST LISTNAME CLOSELIST content .
+    (11) content -> content . keyvaluepair
+    (13) keyvaluepair -> . KEY EQUALS value
+    (14) keyvaluepair -> . DOTTEDKEY EQUALS value
+
+  ! shift/reduce conflict for KEY resolved as shift
+  ! shift/reduce conflict for DOTTEDKEY resolved as shift
+    DICT            reduce using rule 9 (block -> OPENLIST LISTNAME CLOSELIST content .)
+    OPENLIST        reduce using rule 9 (block -> OPENLIST LISTNAME CLOSELIST content .)
+    $end            reduce using rule 9 (block -> OPENLIST LISTNAME CLOSELIST content .)
+    KEY             shift and go to state 7
+    DOTTEDKEY       shift and go to state 8
+
+  ! KEY             [ reduce using rule 9 (block -> OPENLIST LISTNAME CLOSELIST content .) ]
+  ! DOTTEDKEY       [ reduce using rule 9 (block -> OPENLIST LISTNAME CLOSELIST content .) ]
+
+    keyvaluepair                   shift and go to state 45
+
+state 40
+
+    (33) list -> LBRACKET elems2 . RBRACKET
+    (34) elems2 -> elems2 . COMMA value
+
+    RBRACKET        shift and go to state 46
+    COMMA           shift and go to state 47
+
+
+state 41
+
+    (35) elems2 -> value .
+
+    RBRACKET        reduce using rule 35 (elems2 -> value .)
+    COMMA           reduce using rule 35 (elems2 -> value .)
+
+
+state 42
+
+    (19) inlinetable -> LCHAVETA elems1 . RCHAVETA
+    (20) elems1 -> elems1 . COMMA elem
+
+    RCHAVETA        shift and go to state 48
+    COMMA           shift and go to state 49
+
+
+state 43
+
+    (21) elems1 -> elem .
+
+    RCHAVETA        reduce using rule 21 (elems1 -> elem .)
+    COMMA           reduce using rule 21 (elems1 -> elem .)
+
+
+state 44
+
+    (22) elem -> KEY . EQUALS value
+
+    EQUALS          shift and go to state 50
+
+
+state 45
+
+    (11) content -> content keyvaluepair .
+
+    KEY             reduce using rule 11 (content -> content keyvaluepair .)
+    DOTTEDKEY       reduce using rule 11 (content -> content keyvaluepair .)
+    DICT            reduce using rule 11 (content -> content keyvaluepair .)
+    OPENLIST        reduce using rule 11 (content -> content keyvaluepair .)
+    $end            reduce using rule 11 (content -> content keyvaluepair .)
+
+
+state 46
+
+    (33) list -> LBRACKET elems2 RBRACKET .
+
+    DICT            reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    OPENLIST        reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    KEY             reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    DOTTEDKEY       reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    $end            reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    RBRACKET        reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    COMMA           reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+    RCHAVETA        reduce using rule 33 (list -> LBRACKET elems2 RBRACKET .)
+
+
+state 47
+
+    (34) elems2 -> elems2 COMMA . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
+    (17) value -> . list
+    (18) value -> . inlinetable
+    (23) value -> . INTEGER
+    (24) value -> . INDIANNUMBER
+    (25) value -> . SIGNAL
+    (26) value -> . OCTAL
+    (27) value -> . HEXADECIMAL
+    (28) value -> . BINARY
+    (29) value -> . FLOAT
+    (30) value -> . STRING
+    (31) value -> . MULTILINESTRING
+    (32) value -> . BOOLEAN
+    (33) list -> . LBRACKET elems2 RBRACKET
+    (19) inlinetable -> . LCHAVETA elems1 RCHAVETA
+
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    INDIANNUMBER    shift and go to state 24
+    SIGNAL          shift and go to state 25
+    OCTAL           shift and go to state 26
+    HEXADECIMAL     shift and go to state 27
+    BINARY          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    MULTILINESTRING shift and go to state 31
+    BOOLEAN         shift and go to state 32
+    LBRACKET        shift and go to state 33
+    LCHAVETA        shift and go to state 34
+
+    value                          shift and go to state 51
+    list                           shift and go to state 21
+    inlinetable                    shift and go to state 22
+
+state 48
+
+    (19) inlinetable -> LCHAVETA elems1 RCHAVETA .
+
+    DICT            reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    OPENLIST        reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    KEY             reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    DOTTEDKEY       reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    $end            reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    RBRACKET        reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    COMMA           reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+    RCHAVETA        reduce using rule 19 (inlinetable -> LCHAVETA elems1 RCHAVETA .)
+
+
+state 49
+
+    (20) elems1 -> elems1 COMMA . elem
+    (22) elem -> . KEY EQUALS value
+
+    KEY             shift and go to state 44
+
+    elem                           shift and go to state 52
+
+state 50
+
+    (22) elem -> KEY EQUALS . value
+    (15) value -> . DATE
+    (16) value -> . HOURS
+    (17) value -> . list
+    (18) value -> . inlinetable
+    (23) value -> . INTEGER
+    (24) value -> . INDIANNUMBER
+    (25) value -> . SIGNAL
+    (26) value -> . OCTAL
+    (27) value -> . HEXADECIMAL
+    (28) value -> . BINARY
+    (29) value -> . FLOAT
+    (30) value -> . STRING
+    (31) value -> . MULTILINESTRING
+    (32) value -> . BOOLEAN
+    (33) list -> . LBRACKET elems2 RBRACKET
+    (19) inlinetable -> . LCHAVETA elems1 RCHAVETA
+
+    DATE            shift and go to state 19
+    HOURS           shift and go to state 20
+    INTEGER         shift and go to state 23
+    INDIANNUMBER    shift and go to state 24
+    SIGNAL          shift and go to state 25
+    OCTAL           shift and go to state 26
+    HEXADECIMAL     shift and go to state 27
+    BINARY          shift and go to state 28
+    FLOAT           shift and go to state 29
+    STRING          shift and go to state 30
+    MULTILINESTRING shift and go to state 31
+    BOOLEAN         shift and go to state 32
+    LBRACKET        shift and go to state 33
+    LCHAVETA        shift and go to state 34
+
+    value                          shift and go to state 53
+    list                           shift and go to state 21
+    inlinetable                    shift and go to state 22
+
+state 51
+
+    (34) elems2 -> elems2 COMMA value .
+
+    RBRACKET        reduce using rule 34 (elems2 -> elems2 COMMA value .)
+    COMMA           reduce using rule 34 (elems2 -> elems2 COMMA value .)
+
+
+state 52
+
+    (20) elems1 -> elems1 COMMA elem .
+
+    RCHAVETA        reduce using rule 20 (elems1 -> elems1 COMMA elem .)
+    COMMA           reduce using rule 20 (elems1 -> elems1 COMMA elem .)
+
+
+state 53
+
+    (22) elem -> KEY EQUALS value .
+
+    RCHAVETA        reduce using rule 22 (elem -> KEY EQUALS value .)
+    COMMA           reduce using rule 22 (elem -> KEY EQUALS value .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for KEY in state 15 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 15 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 16 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 16 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 17 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 17 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 36 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 36 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 38 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 38 resolved as shift
+WARNING: shift/reduce conflict for KEY in state 39 resolved as shift
+WARNING: shift/reduce conflict for DOTTEDKEY in state 39 resolved as shift
