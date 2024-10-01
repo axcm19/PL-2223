@@ -1,8 +1,8 @@
 # PL - Grupo 22 - Trio d'Ataque
 
-  Tomás Cardoso Francisco - a93193\
-  Afonso Xavier Cardoso Marques - a94940\
-  Ana Filipa da Cunha Rebelo - a90234
+  Tomás Cardoso Francisco :: a93193\
+  Afonso Xavier Cardoso Marques :: a94940\
+  Ana Filipa da Cunha Rebelo :: a90234
 
 # 2.6 Conversor toml-json
 
